@@ -1,0 +1,108 @@
+/*order_list.php*/
+/*.btn {width: 30%;font-size: .5rem;line-height: 0.7rem;height: 1.5rem;}*/
+.header, header {
+    display: block;
+}
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+/*vr_order_list.php*/
+.sstouch-norecord dl {height: 4.75rem;margin-top: .75rem;}
+.sstouch-norecord dl dt {height: 2rem;}
+
+
+/*订单信息*/
+.sstouch-single-nav ul li {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    height: 2.2rem;
+    padding: 0!important;
+    overflow: hidden;
+}
+
+.sstouch-order-item-head .store {
+    line-height: 0.7rem;
+    width: 50%;
+}
+
+.sstouch-order-item-head .state {
+    font-size: .6rem;
+}
+.btn, .value-box span .buy-num {
+    font-size: .5rem;
+    line-height: .7rem;
+}
+/*更多快捷操作*/
+.sstouch-nav-menu li a{
+    width: 6rem;
+}
+/*登录页面*/
+.remember-form .forgot-password {
+    width: 40%;
+}
+.remember-form label {
+    width: 40%;
+}
+.header-r a.text {
+     width: auto;
+}
+/*注册页面*/
+.sstouch-inp-con ul li h4 {
+    line-height: 1.95rem;
+    text-align: center;
+    height: 1.95rem;
+    overflow: hidden;
+}
+.remember-form .reg-cms {
+    width: 49%;
+}
+/*个人中心页面*/
+.member-center dd ul li p {
+    font-size: .55rem;
+    color: #888;
+    line-height: 1rem;
+    height: 1.4rem;
+}
+.sstouch-nav-menu {
+    width: 8rem;
+}
+.sstouch-nav-menu li a {
+    width: 8rem;
+}
+.sstouch-order-item-footer .handle {
+    height: 1.6rem;
+}
+.goods-detail-item .itme-name {
+    width: 3.2rem;
+}
+.goods-detail-item .item-con {
+    margin-left: 3.2rem;
+}
+.goods-detail-store .store-rate {
+    height: 1.2rem;
+}
+
+#filtrate_ul li a {
+    height: 2rem;
+    width: 100%;
+    line-height: .85rem;
+    overflow: auto;
+    white-space: normal;
+    display: table-cell;
+    vertical-align: middle;
+}
+.sstouch-single-nav ul li.selected a {
+    padding-top: 0;
+}
+.sstouch-oredr-detail-block .state-text {
+    float: left;
+    margin-left: .5rem;
+}
+.member-center dd ul li p {
+    line-height: .8rem;
+    height: 1.5rem;
+}

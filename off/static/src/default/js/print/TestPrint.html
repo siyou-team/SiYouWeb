@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>打印控件测试</title>
+<script language="javascript" src="LodopFuncs.js"></script>
+</head>
+<body>
+
+<table cellpadding="0" cellspacing="0" border="0" width="78%" height="152">
+  <tr>  
+    <td width="100%" height="20"><span LANG="ZH">安装完成后</span></td>              
+  </tr>  
+  <tr>  
+    <td width="100%" height="22"><font face="宋体">·现在测试一下：<a href="javascript:CheckIsInstall()">查看本机是否安装了控件</a></font></td>  
+  </tr>  
+  <tr>  
+    <td width="100%" height="22"><font face="宋体">·现在测试一下：<a href="javascript:CheckPrint()">查看是否正常打印</a></font></td>  
+  </tr> 
+  <tr> 
+    <td width="100%" height="20"><b><font size="3" face="黑体">二、相关文件：</font></b> 
+    </td> 
+  </tr> 
+  <tr> 
+    <td width="100%" height="20">Lodop相关文件说明如下：</td> 
+  </tr> 
+  <tr> 
+    <td width="100%" height="20"><font color="#0000FF">·install_lodop32.exe和install_lodop64.exe</font></td> 
+  </tr> 
+  <tr> 
+    <td width="100%" height="20">&nbsp;&nbsp;&nbsp;            
+      这俩文件是安装和升级的主程序，对应32位和64位浏览器（这里是浏览器位数不是操作系统位数），</td>  
+  </tr>  
+  <tr>  
+    <td width="100%" height="20">&nbsp;&nbsp;&nbsp; 提供给用户下载后使用，如果将它们复制或改名为<font color="#0000FF">uninstall_lodop32.exe</font>(名前加un)就可用其卸载控件。</td>   
+  </tr>  
+  <tr>  
+    <td width="100%" height="20"><b><font size="3" face="黑体">三、支持的浏览器：</font></b>  
+    </td>  
+  </tr>  
+  <tr>  
+    <td width="100%" height="20">&nbsp; 目前Lodop支持<font color="#0000FF">IE系列、IE内核系列</font>(遨游、360、世界之窗、搜狗、蚂蚁等)浏览器，以及</td>   
+  </tr>  
+  <tr>  
+    <td width="100%" height="20"><font color="#0000FF">Firefox</font>(火狐)系列、<font color="#0000FF">Chrome</font>(谷歌)系列、<font color="#0000FF">Opera</font>系列、<font color="#0000FF">Safari</font>系列等各类浏览器，</td>  
+  </tr>  
+  <tr>  
+    <td width="100%" height="20">以上安装程序为所有浏览器一次性安装完毕，不需要为各系列浏览器分别安装。</td>  
+  </tr>  
+ 
+ 
+</table> 
+ 
+<script language="javascript" type="text/javascript">    
+	function CheckIsInstall() {	 
+		try{ 
+		     var LODOP=getLodop(); 
+			if (LODOP.VERSION) {
+				 if (LODOP.CVERSION)
+				 alert("当前有C-Lodop云打印可用!\n C-Lodop版本:"+LODOP.CVERSION+"(内含Lodop"+LODOP.VERSION+")"); 
+				 else
+				 alert("本机已成功安装了Lodop控件！\n 版本号:"+LODOP.VERSION); 
+
+			};
+		 }catch(err){ 
+ 		 } 
+	}; 
+	function CheckPrint(){
+    	var LODOP=getLodop(); 
+		LODOP.PRINT_INIT("久久客");
+		LODOP.ADD_PRINT_TEXT(0,0,580,30,"恭喜您，如果您可以读取到这个 信息，说明打印控件已经安装好了");
+		LODOP.SET_PRINT_PAGESIZE(3, 580, 45, "快速消费");
+		LODOP.PRINT();
+	}
+</script> 
+</body> 
+</html>

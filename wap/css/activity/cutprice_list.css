@@ -1,0 +1,87 @@
+.header-r a i.more {
+    background-image: url(../../images/more.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100%;
+    opacity: 1
+}
+.plr65 {
+    position: relative;
+	height: 2rem;
+	overflow: hidden;
+}
+.plr65 #bargained-list {
+	position: absolute;
+}
+#bargained-list li {
+	height: 2rem;
+}
+.mimg {
+	margin: 0 0.5rem 0.3rem 0;
+}
+.sbtn,.mbtn {
+	display: block;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0.2rem 0;
+    background: #fc4747;
+    color: #fff;
+    border-radius: 0.2rem;
+    margin-bottom: 0.5rem;
+}
+.pdtb0 { padding-top: 0;padding-bottom: 0 }
+
+.w75 {width: 75%}
+
+
+.w284 {
+    width: 2.84rem;
+}
+.user-img-ab {
+    position: absolute;
+    top: -1.42rem;
+    left: 50%;
+    border-radius: 1.42rem;
+    margin-left: -1.42rem;
+}
+.c9 {
+    color: #999999;
+}
+.mt2 {
+    margin-top: 0.84rem;
+}
+.pd2 {
+    margin:0.22rem 0; 
+}
+.f3 {
+    font-size: .53rem !important;
+}
+.page-content {
+    margin-top: 1.9rem;
+    margin-bottom: 2rem;
+}
+ .nctouch-norecord {
+    top: 60%;
+}
+
+i.closei {
+    background-image: url(../images/close9.png);
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    float: right;
+    background-repeat: no-repeat;
+    background-size: 37%;
+    background-position: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#bargain_dialog .ui-center-mask-content {
+    position: relative;
+    padding-top: 0.8rem;
+}
+.nctouch-inp-con ul li {
+    margin: 0 0.5rem;
+}
+

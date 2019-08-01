@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ShopAdmin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-06 00:28+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Cesar <i@xinze.me>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-KeywordsList: translate;_;__\n"
+"X-Generator: Poedit 2.0beta1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: static\n"
+
+#: configs/config.ini.php:251
+msgid "Server Too busy, please try again later!"
+msgstr ""
+
+#: controllers/Api/ConfigCtl.php:46 controllers/ConfigCtl.php:73
+#: modules/account/controllers/ConfigCtl.php:85
+#: modules/account/controllers/ConfigCtl.php:144
+#: modules/pay/controllers/ConfigCtl.php:85
+#: modules/pay/controllers/ConfigCtl.php:144
+msgid "生成配置文件错误!"
+msgstr ""
+
+#: controllers/Api/ConfigCtl.php:51
+#, fuzzy
+#| msgid "donatesuccess"
+msgid "success!"
+msgstr "捐献成功！"
+
+#: controllers/CategoryCtl.php:52
+msgid "正常"
+msgstr ""
+
+#: controllers/CategoryCtl.php:53
+msgid "仓库中"
+msgstr ""
+
+#: controllers/CategoryCtl.php:54
+msgid "违规"
+msgstr ""
+
+#: controllers/CategoryCtl.php:64
+msgid "未通过"
+msgstr ""
+
+#: controllers/CategoryCtl.php:65
+msgid "通过"
+msgstr ""
+
+#: controllers/CategoryCtl.php:66
+msgid "待审核"
+msgstr ""
+
+#: controllers/ConfigCtl.php:58 modules/account/controllers/ConfigCtl.php:70
+#: modules/account/controllers/ConfigCtl.php:129
+#: modules/pay/controllers/ConfigCtl.php:70
+#: modules/pay/controllers/ConfigCtl.php:129
+#: modules/plantform/controllers/ConfigCtl.php:61
+#, fuzzy
+#| msgid "donatesuccess"
+msgid "sucess"
+msgstr "捐献成功！"
+
+#: controllers/ConfigCtl.php:79 modules/account/controllers/ConfigCtl.php:95
+#: modules/account/controllers/ConfigCtl.php:150
+#: modules/pay/controllers/ConfigCtl.php:95
+#: modules/pay/controllers/ConfigCtl.php:150
+#: modules/plantform/controllers/ConfigCtl.php:109
+msgid "请求错误!"
+msgstr ""
+
+#: controllers/LoginCtl.php:250
+msgid "注册成功"
+msgstr ""
+
+#: controllers/LoginCtl.php:261
+msgid "创建用户信息失败"
+msgstr ""
+
+#: controllers/LoginCtl.php:367
+msgid "token错误"
+msgstr ""
+
+#: controllers/Plugin/Perm.php:73
+msgid "需要登录"
+msgstr ""
+
+#: models/LoginModel.php:139
+msgid "请输入账号"
+msgstr ""
+
+#: models/LoginModel.php:146
+msgid "请输入密码"
+msgstr ""
+
+#: models/LoginModel.php:154
+msgid "请输入验证码"
+msgstr ""
+
+#: models/LoginModel.php:162
+msgid "验证码错误"
+msgstr ""
+
+#: modules/account/views/Config/connect.php:14
+msgid "互联登录设置"
+msgstr ""
+
+#: modules/account/views/Config/index.php:11
+#: modules/pay/views/Config/index.php:11
+#: modules/plantform/views/Config/site.php:11
+#: modules/plantform/views/Config/validator.php:7
+#: views/default/Config/site.php:11 views/default/Config/validator.php:7
+msgid "站点设置"
+msgstr ""
+
+#: modules/account/views/Config/index.php:13
+#: modules/pay/views/Config/index.php:13
+#: modules/plantform/views/Config/site.php:13
+#: modules/plantform/views/Config/validator.php:9
+#: views/default/Config/site.php:13 views/default/Config/validator.php:9
+msgid "站点设置-网站全局内容基本选项设置"
+msgstr ""
+
+#: modules/plantform/controllers/Base/LanguageCtl.php:124
+#, fuzzy
+#| msgid "donatesuccess"
+msgid "success"
+msgstr "捐献成功！"
+
+#: modules/plantform/controllers/Base/LanguageCtl.php:129
+msgid "failure"
+msgstr ""
+
+#: modules/plantform/views/App/Licence/index.php:6
+#: modules/plantform/views/Base/App/index.php:6
+#: modules/service/views/App/Licence/index.php:6
+#: modules/service/views/Base/App/index.php:6
+#: modules/service/views/Base/AppVersionRelease/index.php:6
+msgid "应用设置"
+msgstr ""
+
+#: modules/plantform/views/Base/District/index.php:6
+#: modules/service/views/Base/District/index.php:6
+#: views/default/Base/District/index.php:6
+msgid "地区设置"
+msgstr ""
+
+#: modules/plantform/views/Config/layout.php:10
+#: views/default/Config/layout.php:10
+msgid "首页设置"
+msgstr ""
+
+#: modules/plantform/views/Config/layout.php:11
+#: views/default/Config/layout.php:11
+msgid "首页设置-网站首页内容设置"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:14
+#: modules/plantform/views/Config/search.php:10
+#: modules/plantform/views/Config/shop.php:10 views/default/Config/mail.php:14
+#: views/default/Config/search.php:10 views/default/Config/shop.php:10
+msgid "店铺搜索设置-热搜词与默认词设设置"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:29
+msgid "发信邮箱"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:38
+msgid "发信人"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:47
+msgid "SMTP 服务器"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:57
+msgid "SMTP 端口号"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:66
+msgid "SMTP 身份验证用户名"
+msgstr ""
+
+#: modules/plantform/views/Config/mail.php:75
+msgid "SMTP 身份验证密码"
+msgstr ""
+
+#: modules/plantform/views/Config/upload.php:14
+#: views/default/Config/upload.php:14
+msgid "上传设置-网站全局图片、上传等参数设定"
+msgstr ""
+
+#: views/default/Base/Crontab/index.php:7
+msgid "计划任务设置"
+msgstr ""
+
+#: views/default/Base/Crontab/index.php:8
+msgid "为了更高性能,可以从Linux服务器上设置crontab来实现(关闭计划任务插件)。"
+msgstr ""
+
+#: views/default/Base/Crontab/index.php:9
+msgid "如果采用程序触发计划任务,则需要开启计划任务插件。"
+msgstr ""
+
+#: views/default/Base/Crontab/index.php:9
+#, php-format
+msgid "脚本存放目录: %s/task/crons/。"
+msgstr ""
+
+#: views/default/Base/ProductBrand/category.php:13
+msgid "未分类"
+msgstr ""
+
+#: views/default/Base/ProductSpec/category.php:13
+msgid "通用分类"
+msgstr ""
+
+#: views/default/Base/ProductType/index.php:6
+#: views/default/Base/ProductType/manage.php:8
+msgid "类型管理"
+msgstr ""
+
+#: views/default/Base/ProductType/manage.php:9
+msgid "具备草稿功能"
+msgstr ""
+
+#~ msgid "readed"
+#~ msgstr "已读"
+
+#~ msgid "unopen"
+#~ msgstr "尚未开启"
+
+#~ msgid "GuanZhiUp"
+#~ msgstr "官职提升！"
+
+#~ msgid "firstFree"
+#~ msgstr "(首次免费)"
+
+#~ msgid "youget"
+#~ msgstr "您获得了"
+
+#~ msgid "fullstop"
+#~ msgstr "。"
+
+#~ msgid "skillclickhere"
+#~ msgstr "点击升级技能"
+
+#~ msgid "consumehalf"
+#~ msgstr "消耗减半"
+
+#~ msgid "kecanbai"
+#~ msgstr "后可参拜"
+
+#~ msgid "youli_tip"
+#~ msgstr "再次游历需要使用<font color=\"green\">1个司南石</font>，您确定使用并继续游历吗？"
+
+#~ msgid "teshufuwu"
+#~ msgstr "按摩服务"
+
+#~ msgid "shengdao"
+#~ msgstr "升到"
+
+#~ msgid "shangweikaiqi"
+#~ msgstr "都说庖丁解牛厉害，但谁又知道他的手艺如何呢？特色小吃玩法即将开启，敬请期待。"
+
+#~ msgid "missionDay:%d/%d"
+#~ msgstr "日常( %d / %d )"
+
+#~ msgid "(had%d)"
+#~ msgstr "(拥有 %d )"
+
+#~ msgid "%dlevel"
+#~ msgstr " %d 级"
+
+#~ msgid "rob_level_tip"
+#~ msgstr "您的等级不足18级，无法进行PK抢夺操作，请先提升等级。"
+
+#~ msgid "lackcondition"
+#~ msgstr "开启条件不足！"
+
+#~ msgid "no_prize"
+#~ msgstr "奖励暂时无法领取，请稍后再来。"
+
+#, fuzzy
+#~ msgid "alliacne"
+#~ msgstr "帮贡"
