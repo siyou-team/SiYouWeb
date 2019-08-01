@@ -1,0 +1,17 @@
+<block wx:if="{{Prize.length > 0}}">
+  <view class="m-myprice-item" wx:for="{{Prize}}">
+    <image src="{{item.awards_image}}" />
+    <view class="price-title">{{item.awards_name}}</view>
+    <view class="price-time">{{item.alh_datetime}}</view>
+    <view class="price-btn {{item.alh_is_send?'gray':'red'}}" bindtap="buttonclicked" data-id="{{item.alh_id}}" data-activity_id="{{item.activity_id}}" data-alh_is_send="{{item.alh_is_send}}" data-alh_item_id="{{item.alh_item_id}}">{{item.alh_is_send?'已经发奖':'去领奖品'}}</view>
+  </view>
+</block>
+<view class="m-nullcontent" wx:else>
+  <view class="m-nullpage-middle">
+    <label class="iconfont icon-meiyougengduo"></label>
+    <view class="m-null-tip">
+      <text>亲~什么都没有</text>
+      <text>没有{{tip1}}中的奖品，快去{{tip2}}吧~~</text>
+    </view>
+  </view>
+</view>

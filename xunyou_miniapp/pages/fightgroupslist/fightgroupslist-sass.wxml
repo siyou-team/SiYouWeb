@@ -1,0 +1,112 @@
+<scroll-view scroll-y="true" class="m-product-all u-pa" bindscrolltolower="scrollbottom" scroll-top="{{scposition}}" wx:if="{{isdata}}">
+  <view wx:if="{{pdlist.length>0}}" class="m-product-list {{viewtype==1?'fadeIn animated m-listv':''}}"  style="padding-top:10rpx">
+    <view class="u-toptip">
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">全部拼团商品</text>
+      </view>
+    </view>
+    <block wx:for="{{pdlist}}" wx:for-item="item">
+      <!--未开团-->
+      <navigator  url="../productdetail/productdetail?pid={{item.activity_rule.item_id}}&activity_type_id={{item.activity_type_id}}" class="m-product-item m-product-GP">
+        <view class="m-product-img">
+          <image src="{{item.activity_rule.product_image}}" />
+        </view>
+        <view class="m-product-info">
+          <view class="m-product-name">
+            <label>{{item.activity_rule.item_name}}</label>
+
+            <!--团购展示-->
+            <view class="groupNumber">
+              <label class="iconfont icon-icon"></label>
+              <text>{{item.activity_rule.group_quantity}}</text>人团</view>
+
+            <!--团购展示-->
+          </view>
+          <view class="m-product-price">
+            <label>¥</label>{{item.activity_rule.item_unit_price}}
+            <label class="u-del-price">¥{{item.activity_rule.group_sale_price}}</label>
+
+            <!--团购展示-->
+            <button class="u-btn u-btn-default">立即开团</button>
+            <!--团购展示-->
+          </view>
+        </view>
+      </navigator>
+
+      <!--未开团-->
+
+    </block>
+  </view>
+
+  <!--已经开团-->
+  <view wx:if="{{fglist.length>0}}"  class="m-product-list {{viewtype==1?'fadeIn animated m-listv':''}}" style="padding-top:40rpx">
+    <view class="u-toptip">
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">进行中的拼团</text>
+      </view>
+    </view>
+    <block wx:for="{{fglist}}" wx:for-item="item">
+      <navigator url="../fightgroupsdetail/fightgroupsdetail?pid={{item.activity_rule.item_id}}&activity_type_id={{item.Id}}" class="m-product-item m-product-GP">
+        <view class="m-product-img">
+          <image src="{{item.activity_rule.product_image}}" />
+        </view>
+        <view class="m-product-info">
+          <view class="m-product-name">
+            <label>{{item.activity_rule.item_name}}</label>
+
+            <!--团购展示-->
+            <view class="groupNumber">
+              <label class="iconfont icon-icon"></label>
+              <text>{{item.activity_rule.group_quantity}}</text>人团</view>
+            <view class="progressBarBox">
+              <view class="u-progressBar">
+                <view class="u-progressBar-cont" style="width:{{item.GoingPercent}}%"></view>
+              </view>
+              {{item.GoingPercent}}%
+            </view>
+
+            <!--团购展示-->
+          </view>
+          <view class="m-product-price">
+            <label>¥</label>{{item.activity_rule.item_unit_price}}
+            <label class="u-del-price">¥{{item.activity_rule.group_sale_price}}</label>
+
+            <!--团购展示-->
+            <button class="u-btn u-btn-default">立即参团</button>
+
+            <!--团购展示-->
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+
+  <!--已经开团-->
+  <view class="m-loading-box">
+    <block wx:if="{{ispage}}">
+      <view class="u-loadmore">
+        <label class="u-loading"></label>
+        <text class="u-loadmore-tips">正在加载</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">没有更多数据啦！</text>
+      </view>
+    </block>
+  </view>
+  <view class="u-top">
+    <view class="u-back" bindtap="returnTop">
+      <label class="iconfont icon-fanhuidingbu"></label>
+    </view>
+  </view>
+</scroll-view>
+<navigator url="../search/search" redirect="true" class="m-nullpage" wx:else>
+<view class="m-nullpage-middle">
+  <label class="iconfont icon-sousuo-sousuo"></label>
+  <view class="m-null-tip">
+    <text>亲~找不到您想要的商品</text>
+    <text>再多点提示呗</text>
+  </view>
+</view>
+</navigator>

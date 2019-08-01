@@ -1,0 +1,24 @@
+<template name="shop9">
+    <view class="m-banner">
+      <image src="{{commonTPL.shopInfo.BackGroundPath}}" />
+      <view class="m-content-box">
+      </view>
+      <view class="m-logo">
+        <image src="{{commonTPL.shopInfo.WapLogoPath}}" />
+      </view>
+      <view class="m-shopinfo">
+        <label>{{commonTPL.shopInfo.StoreName}}</label>
+        <label class="iconfont icon-qijiandian"></label>
+        <text wx:if="{{commonTPL.shopInfo.ShopFeatures!=''}}">公告：{{commonTPL.shopInfo.ShopFeatures}}</text>
+      </view>
+    </view>
+    <view class="message">
+      <view class="map">
+        <label></label>
+        <text>{{commonTPL.shopInfo.ShopFeatures}}</text>
+      </view>
+      <view class="call">
+        <image src=""></image>
+      </view>
+    </view>
+</template>

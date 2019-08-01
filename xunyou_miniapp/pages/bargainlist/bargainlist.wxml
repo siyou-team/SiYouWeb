@@ -1,0 +1,40 @@
+<scroll-view scroll-y="true" class="m-product-all u-pa" bindscrolltolower="scrollbottom" scroll-top="{{scposition}}" wx:if="{{isdata}}">
+  <block wx:for="{{Info}}" wx:for-item="item">
+    <navigator url="../bargain/bargain?mid={{item.activity_id}}&pid={{item.item_id}}" class="m-product-item m-product-GP">
+      <view class="m-product-img">
+        <image src="{{item.product_image}}" />
+      </view>
+      <view class="m-product-info">
+        <view class="m-product-name">
+          <label>{{item.product_item_name}}</label>
+        </view>
+        <view class="m-product-price">
+          <label>¥</label>{{item.item_unit_price}}
+          <button class="u-btn u-btn-default">立即砍价</button>
+        </view>
+      </view>
+    </navigator>
+  </block>
+  <view class="m-loading-box">
+    <block wx:if="{{ispage}}">
+      <view class="u-loadmore">
+        <label class="u-loading"></label>
+        <text class="u-loadmore-tips">正在加载</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">没有更多数据啦！</text>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+<navigator url="../search/search" redirect="true" class="m-nullpage" wx:else>
+  <view class="m-nullpage-middle">
+    <label class="iconfont icon-sousuo-sousuo"></label>
+    <view class="m-null-tip">
+      <text>亲~找不到您想要的商品</text>
+      <text>再多点提示呗</text>
+    </view>
+  </view>
+</navigator>

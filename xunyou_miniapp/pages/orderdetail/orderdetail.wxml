@@ -1,0 +1,235 @@
+<import src="../../tpl/shareMskTpl.wxml"/>
+<movable-area class="move-area">
+<movable-view wx:if="{{OrderInfo.IsRedPacketIcon}}" inertia class="move-img" direction="all" bindtap='IsShowRPK'>
+    <image src="https://static.shopsuite.cn/xcxfile/appicon/rpk_min.png"></image>
+</movable-view>
+
+<view class="m-cells">
+    <view class="m-cell ">
+        <view class="m-cell-bd">
+            <text>订单编号：{{OrderInfo.order_id}}</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">{{OrderInfo.order_state_name}}</view>
+    </view>
+    <view>
+        <block wx:if="{{OrderInfo.if_logistics}}" wx:for="{{OrderInfo.logistics}}" wx:for-item="logistics_item">
+            <view class="m-cell">
+                <view class="m-cell-bd"><text>物流单号：{{logistics_item.order_tracking_number||""}}</text></view>
+            </view>
+            <view class="m-cell">
+                <view class="m-cell-bd"><text>物流公司：{{logistics_item.logistics_name||""}}</text></view>
+            </view>
+            <navigator url="../logisticsprogress/logisticsprogress?on={{OrderInfo.order_id}}&logistics_id={{logistics_item.logistics_id}}&logistics_name={{logistics_item.logistics_name}}&logistics_number={{logistics_item.logistics_number}}&tracking_number={{logistics_item.order_tracking_number}}" class="m-cell m-cell-access ">
+                <view class="m-cell-bd"><text>查看物流</text></view>
+                <view class="m-cell-ft"></view>
+            </navigator>
+        </block>
+        <!--厂家自送 其他配送-->
+        <view wx:if="{{OrderInfo.LogisticsKey=='VENDOR'||OrderInfo.LogisticsKey=='OTHER'}}">
+            <view class="m-cell">
+                <view class="m-cell-bd">
+                    <text>送货人：{{OrderInfo.LogisticCode}} {{OrderInfo.Shipper}}</text>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{OrderInfo.LogisticsKey=='CLIENT'}}">
+            <view class="m-cell">
+                <view class="m-cell-bd">
+                    <text>提货人：{{OrderInfo.LogisticCode}} {{OrderInfo.Shipper}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 是否需要发货 -->
+<view class="m-addres-info" wx:if="{{OrderInfo.if_delivery}}">
+    <view class="m-ad-name">
+        <text>{{OrderInfo.delivery.da_name}}</text>
+        <text>{{OrderInfo.delivery.da_mobile}}</text>
+    </view>
+    <view class="m-ad-address">
+        <text>{{OrderInfo.delivery.da_province}}/{{OrderInfo.delivery.da_city}}/{{OrderInfo.delivery.da_county}}
+            {{OrderInfo.delivery.da_address}}
+        </text>
+    </view>
+</view>
+
+<view wx:else class="massage" style="align-items: center;justify-content: space-between">
+    <view class="massage-name">
+        预约人：{{OrderInfo.delivery.da_name}}
+    </view>
+    <view class="massage-tel" style="margin-right:40rpx">
+        电话：{{OrderInfo.delivery.da_mobile}}
+    </view>
+</view>
+
+<view class="code1" wx:if="{{OrderInfo.is_virtual&&OrderInfo.order_is_paid==3013}}" style="background:#fff;padding-bottom:20rpx">
+  <image src="{{OrderInfo.virtual_qrcode}}" style="width:375rpx;height:375rpx"></image>
+  <text>服务码:{{OrderInfo.chain_code}}</text>
+</view>
+
+<view class="m-product-all">
+    <view class="m-product-list">
+        <navigator wx:for="{{OrderInfo.items}}" wx:for-item="item"
+                   url="../productdetail/productdetail?is_store_flag=0&pid={{item.item_id}}" class="m-product-item">
+            <view class="m-product-img">
+                <image src="{{item.order_item_image}}" mode="aspectFill"/>
+            </view>
+            <view class="m-product-info">
+                <view class="m-product-name">
+                    <label>{{item.item_name}}</label>
+                    <label class="m-min-name"
+                           style="overflow:hiddentext-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1">
+                        {{item.spec_info?item.spec_info:""}}
+                    </label>
+                </view>
+                <view class="m-product-price">
+                    <label>￥</label>{{item.order_item_unit_price}}
+                    <text>x{{item.order_item_quantity}}</text>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>
+<view wx:if="{{OrderInfo.order_message}}">
+    <view class="m-cells-title">备注</view>
+    <view class="m-cells m-cells-form">
+        <view class="m-cell">
+            <view class="m-cell-bd">
+                {{OrderInfo.order_message}}
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 门店提货 todo -->
+<view class="m-cells total-info">
+    <view class="m-cell"  wx:if="{{OrderInfo.is_virtual && OrderInfo.chain_id}}">
+        <view class="m-cell-bd">
+          <text>门店名称</text>
+        </view>
+        <view style="display:flex">
+          <image src="../../assets/merchant.png" style="width:30rpx;height:30rpx;margin-right:10rpx"></image>
+          <view class="m-cell-ft m-order-typetxt" style="color:#17abe3"> {{OrderInfo.chain_name}}</view>
+        </view>
+    </view>
+    <view class="m-cell" wx:if="{{OrderInfo.is_virtual}}">
+        <view class="m-cell-bd">
+          <text style="">预约时间</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt" style="color:#000">{{OrderInfo.virtual_service_time}}</view>
+    </view>
+    <view class="m-cell"  wx:if="{{OrderInfo.is_virtual && OrderInfo.chain_id}}">
+        <view class="m-cell-bd">
+          <text>商家电话</text>
+        </view>
+        <view bindtap="call" style="display:flex">
+          <image src="../../assets/call.png" style="width:30rpx;height:30rpx;margin-right:10rpx"></image>
+          <view class="m-cell-ft m-order-typetxt" style="color:#17abe3"> {{OrderInfo.chain_mobile}}</view>
+        </view>
+    </view>
+    <view class="m-cell"  wx:if="{{OrderInfo.is_virtual && OrderInfo.chain_id}}" style="display:flex;flex-flow: column;justify-content: space-between;align-items: stretch">
+        <view class="m-cell-bd">
+          <text>商家地址</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt" style="color:#717171;text-align:left;margin-top:20rpx">{{OrderInfo.chain_address}}</view>
+    </view>
+    <view class="m-cell">
+        <view class="m-cell-bd">
+            <text>商品总额</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">￥{{OrderInfo.order_item_amount}}</view>
+    </view>
+    <view class="m-cell" wx:if="{{OrderInfo.order_item_discount_amount>0}}">
+        <view class="m-cell-bd">
+            <text>活动优惠</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">-￥{{OrderInfo.order_discount_amount}}</view>
+    </view>
+
+    <view class="m-cell" wx:if="{{OrderInfo.CouponDiscount>0}}">
+        <view class="m-cell-bd">
+            <text>优惠券</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">-￥{{OrderInfo.CouponDiscount}}</view>
+    </view>
+
+    <!-- todo 会员折扣等级 -->
+    <view class="m-cell" wx:if="{{0 && !(OrderInfo.LevelDiscount==0)}}">
+        <view class="m-cell-bd">
+            <text>会员折扣</text>
+            <text style="font-size:24rpx;color:#717171">({{OrderInfo.MomentMemberDiscount}}折)</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">-￥{{OrderInfo.LevelDiscount}}</view>
+    </view>
+    <!-- todo 积分抵现 -->
+    <view class="m-cell" wx:if="{{0 && !(OrderInfo.PointAsCash==0)}}">
+        <view class="m-cell-bd">
+            <text>积分抵现</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">-￥{{OrderInfo.PointAsCash}}</view>
+    </view>
+    <view class="m-cell" wx:if="{{0 && deduction>0}}">
+        <view class="m-cell-bd">
+            <text>余额抵扣</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">-￥{{deduction}}</view>
+    </view>
+    <view class="m-cell" wx:if="{{1 || OrderInfo.if_delivery}}">
+        <view class="m-cell-bd">
+            <text>运费</text>
+        </view>
+        <view class="m-cell-ft m-order-typetxt">+￥{{OrderInfo.order_shipping_fee}}</view>
+    </view>
+    <view class="m-cell ">
+
+        <view class="m-cell-bd">
+        </view>
+        <view class="m-cell-ft m-total-info">
+            实付款：
+            <label class="m-total-price">￥{{OrderInfo.order_payment_amount}}</label>
+            <view class="m-total-time">下单时间：{{OrderInfo.order_time}}</view>
+        </view>
+    </view>
+    <view style="height:108rpx;">
+    </view>
+</view>
+<view class="u-cleanbox"></view>
+</movable-area>
+<view class="m-footer-btn">
+<navigator url="../product-comment/product-comment?od={{OrderInfo.order_id}}"
+           wx:if="{{OrderInfo.order_buyer_evaluation_status == 0 && OrderInfo.order_state_id == 2060}}"
+           class="u-link-btn">去评价
+</navigator>
+<navigator url="../product-comment/product-comment?od={{OrderInfo.order_id}}"
+           wx:if="{{OrderInfo.order_buyer_evaluation_status == 1 && OrderInfo.order_state_id == 2060}}"
+           class="u-link-btn">查看评价
+</navigator>
+<form report-submit="true" bindsubmit="gotopay">
+    <button data-on="{{OrderInfo.order_id}}" wx:if="{{OrderInfo.order_is_paid == 3010 && OrderInfo.order_state_id!=StateCode.ORDER_STATE_CANCEL}}"
+            class="u-link-btn" formType="submit">去支付
+    </button>
+</form>
+<view data-on="{{OrderInfo.order_id}}" wx:if="{{OrderInfo.if_buyer_cancel}}" class="u-link-btn" bindtap="cancelOrder">
+    取消订单
+</view>
+</view>
+<template is="shareMskTpl" data="{{PageQRCodeInfo}}"/>
+<view class="shareRPK " wx:if="{{showRPK && OrderInfo.IsRedPacketIcon}}" bindtap='IsShowRPK'>
+    <view class="shareRPKBox {{showRPK?'animated bounceIn':'animated bounceOut'}}" catchtap
+          style='background:url(https://static.shopsuite.cn/xcxfile/appicon/rpk_box.png) no-repeat;background-size: cover;'>
+        <view class="sendRPK" catchtap='shareBox'></view>
+        <view class="closeRPK" catchtap='IsShowRPK'></view>
+    </view>
+</view>
+<view class="m-loading-box">
+  <block wx:if="{{!OrderInfo}}">
+      <view class="u-loadmore">
+          <label class="u-loading"></label>
+          <text class="u-loadmore-tips">正在加载</text>
+      </view>
+      <view>
+        <text></text>
+      </view>
+  </block>
+</view>

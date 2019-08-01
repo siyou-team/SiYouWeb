@@ -1,0 +1,37 @@
+ <template name="index_msk">
+ <view class="msk {{!isCancel?'hide':''}}" bindtap="cancel">
+    <view class="msk_box" url="../receivecontent/receivecontent" catchtap="innertouch">
+      <image src="https://static.shopsuite.cn/xcxfile/appicon/Package.png" style='width:100%'></image>
+      <view class="msk_box_info" style='right:16%;top:40%;'>
+        <label>{{CouponAmount}}</label>
+        <text>元</text>
+      </view>
+      <view class="btn_receivenow" bindtap="doReceive"></view>
+      <view class="btn_cancel" bindtap="cancel">✕</view>
+    </view>
+  </view>
+  </template>
+
+<template name="success_msk">
+  <view class="msk1"  bindtap="cancelsuccess">
+  <view class="m-coupon-box" catchtap="innertouch">
+    <view class="m-coupon-box-top"></view>
+    <view class="m-coupon-box-content"   >  
+      <view class="m-coupon-box-title">
+        优惠券领取成功
+        <view class="m-coupon-box-tip">点击右上角分享给好友</view>
+      </view>
+       <scroll-view scroll-y="true" class="m-coupon-box-list">
+        <view class="m-coupon-box-item" wx:for="{{Coupons}}">
+            <label>{{item.voucher_price}}</label>
+            <text>{{item.Name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="m-coupon-box-bottom"></view>
+    <view class="close_msk" catchtap="cancelsuccess">
+        <image style="width:50rpx;height:50rpx" src="../../assets/delete.png"></image>
+    </view>
+  </view>
+</view>
+</template>

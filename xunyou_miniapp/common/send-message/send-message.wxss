@@ -1,0 +1,3 @@
+/* pages/send-message/send-message.wxss */
+ .send-button{background-color: transparent;display: inline-block;font-size: 24rpx;padding: 0;margin: 0;text-align:inherit;line-height:inherit;border-radius: 0;}
+.send-button::after{border: none;padding: 0;margin: 0;} 

@@ -1,0 +1,32 @@
+<block>
+  <scroll-view scroll-y="true" wx:if="{{Info.length>0}}"  bindscrolltolower="scrollbottom" style="width:100%;height:{{windowHeight}}px">
+    <navigator url="../article-detail/article-detail?id={{items.article_id}}" class="m-activity-item" wx:for="{{Info}}" wx:for-item="items">
+      <image src="{{items.article_image}}" mode="aspectFill" class="m-activity-img" />
+      <view class="m-activity-info">
+        <view class="m-activity-name" style="word-wrap:break-word;">{{items.article_title}}</view>
+          <view class="m-activity-time">发布时间：{{items.article_add_time}}</view>
+      </view>
+    </navigator>
+    <view class="m-loading-box">
+      <block wx:if="{{ispage}}">
+        <view class="u-loadmore">
+          <label class="u-loading"></label>
+          <text class="u-loadmore-tips">正在加载</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="u-loadmore u-loadmore-line">
+          <text class="u-loadmore-tips">没有更多数据啦！</text>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+   <view class="m-nullcontent" wx:else>
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~什么都没有</text>
+      </view>
+    </view>
+  </view>
+</block>

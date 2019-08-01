@@ -1,0 +1,39 @@
+<view wx:if="{{isShow}}">
+  <!--<view class="header">充值金额</view>
+    <view style="display:flex;width:100%">
+      <view class="content" style="width:100%">
+        <view wx:for="{{Info}}" wx:for-item="item">
+          <view class="money {{item.Id==fid?'redborder redfont':'grayborder'}}" data-id="{{item.Id}}" bindtap="choose">
+            <text class="realMoney">{{item.PaymentAmount}}元</text>
+            <text class="giveMoney {{item.Id==fid?'':'grayfont'}}" wx:if="{{item.ExtraAmount}}">赠送:{{item.ExtraAmount}}元</text>
+          </view>
+        </view>
+      </view>
+    </view>-->
+  <view class="m-cell">
+      <view class="m-cell-hd"><label  class="u-label">充值金额</label></view>
+      <view class="m-cell-bd">
+          <input class="u-input" type="number" value="{{pdr_amount}}" placeholder="请输入充值金额" bindinput="inputRecharge" maxlength="9"/>
+      </view>
+      <div wx:if="{{!isMoney}}" class="m-cell-ft">
+          <icon class="m-icon-warn" type="warn" ></icon>
+      </div>
+  </view>
+
+  <view class="header">充值说明</view>
+  <view wx:for="{{Info}}" data-id="{{item.Id}}">
+    <view class="message {{item.Id==fid?'':'hidden'}}">{{item.Description}}</view>
+  </view>
+  <form report-submit="true" bindsubmit="paysubmit">
+    <button class="payment" formType="submit">充值</button>
+  </form>
+</view>
+
+<view wx:else class="m-nullpage">
+  <view class="m-nullpage-middle">
+    <label class="iconfont icon-meiyougengduo"></label>
+    <view class="m-null-tip">
+      <text>亲~什么都没有</text>
+    </view>
+  </view>
+</view>

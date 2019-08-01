@@ -1,0 +1,66 @@
+<view class="topbg">
+  <view class="topinfo">
+    <navigator  url="../cashbalance/cashbalance?user_total_weath={{CashData.user_total_weath}}&user_money={{CashData.user_money}}&user_commission_buy={{CashData.user_commission_buy}}">
+      <label style="font-size:56px">{{CashData.user_total_weath}}</label><label>元</label>
+    </navigator>
+    <view class="portionMoney"><label>余额{{CashData.user_money}}元</label><label>佣金{{CashData.user_commission_buy}}元</label></view>
+    <!-- <navigator url="../applycash/applycash?price={{CashData.user_commission_buy}}" class="m-t-text">申请提现</navigator> -->
+  </view>
+  <view class="menu_list">
+    <navigator url="../profitlist/profitlist?tp=1" class="menu_item">
+      <view>{{CashData.month_commission_buy}}</view>
+      <text>本月预估收益(元)</text>
+    </navigator>
+    <navigator url="../fanslist/fanslist" class="menu_item">
+      <view>{{CashData.month_fans_num}}</view>
+      <text>本月新增粉丝(个)</text>
+    </navigator>
+  </view>
+</view>
+<view class="m-cells">
+  <navigator url="../fanslist/fanslist" class="m-cell m-cell-access" wx:if="{{isMemDist}}">
+    <view class="m-cell-bd">
+      <label>我的粉丝</label>
+    </view>
+    <view class="m-cell-ft">{{CashData.total_fans_num}}</view>
+  </navigator>
+  <navigator url="../profitlist/profitlist" class="m-cell m-cell-access" wx:if="{{isMemDist}}">
+    <view class="m-cell-bd">
+      <label>分销总收益</label>
+    </view>
+    <view class="m-cell-ft">{{CashData.commission_buy_amount}}</view>
+  </navigator>
+  <navigator url="../cashdetaillist/cashdetaillist" class="m-cell m-cell-access" wx:if="{{isMemDist||isECashCard}}">
+    <view class="m-cell-bd">
+      <label>资金明细</label>
+    </view>
+    <view class="m-cell-ft"></view>
+  </navigator>
+  <navigator url="../applycashdetail/applycashdetail" class="m-cell m-cell-access" wx:if="{{isMemDist||isECashCard}}">
+    <view class="m-cell-bd">
+      <label>提现记录</label>
+    </view>
+    <view class="m-cell-ft"></view>
+  </navigator>
+</view>
+<view class="m-text-box" wx:if="{{isMemDist}}">
+  <view bindtap="showTip">
+    <label class="iconfont icon-14052218"></label>代言规则
+  </view>
+</view>
+<!-- <view class="m-btn-box m-btn-box-two" wx:if="{{CashData.isShowDistributionButton}}">
+  <navigator url="../endorsement/endorsement" class="u-btn u-btn-default">我要代言</navigator>
+  <navigator url="../recharge/recharge" class="u-btn u-btn-default">我要充值</navigator>
+</view>
+<view class="m-btn-box" wx:if="{{CashData.isShowDistributionButton==false}}">
+  <navigator url="../recharge/recharge" class="u-btn u-btn-default">我要充值</navigator>
+</view> -->
+<!-- <view class="m-btn-box" wx:if="{{CashData.isShowDistributionButton}}">
+  <navigator url="../endorsement/endorsement" class="u-btn u-btn-default">我要代言</navigator>
+</view> -->
+<view class="m-btn-box">
+  <view class="u-btn u-btn-default" bindtap="goto" wx:if="{{isECashCard}}">我要充值</view>
+</view>
+<view class="m-btn-box" wx:if="{{CashData.isShowDistributionButton&&isMemDist}}">
+  <navigator url="../endorsement/endorsement" class="u-btn btn-line-primary">我要代言</navigator>
+</view>

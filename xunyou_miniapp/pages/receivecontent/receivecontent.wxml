@@ -1,0 +1,55 @@
+<view class="m-coupon-list" wx:if="{{ispage}}">
+  <block wx:if="{{VoucherList.length>0}}">
+
+    <view class="m-coupon-item" wx:for="{{VoucherList}}">
+       <view class="m-coupon-info">
+          <view class="m-coupon-text">
+            <label >{{item.activity_name}}</label>
+            <text>满{{item.activity_rule.requirement.buy.subtotal}}元可用，消耗{{item.activity_rule.requirement.points.needed}}积分领取。{{item.activity_remark}}</text>
+            <text>有效日期至：{{item.activity_endtime}}</text>
+          </view>
+          <view class="m-coupon-price">
+            <view class="price-content-box ">
+              <label>￥</label>{{item.activity_rule.voucher_price}}</view>
+          </view>
+        </view>
+        <view class="m-coupon-btn" bindtap="doReceive" data-isreceive="{{item.if_gain ? '1' : '-1'}}" data-id="{{item.activity_id}}" data-point="{{item.activity_rule.requirement.points.needed}}">
+          <label class="btn-coupon {{ item.if_gain ? '' : 'btn-coupon-gray'}}">{{item.if_gain ? '立即领取':'已经领取' }}</label>
+        </view>
+      </view>
+
+  </block>
+  <view class="m-nullcontent" wx:else>
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~什么都没有</text>
+        <text>没有可领的优惠券~</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="msk1" wx:if="{{!flag}}" bindtap="outertouch">
+  <view class="m-coupon-box" catchtap="innertouch">
+    <view class="m-coupon-box-top">
+
+    </view>
+    <view class="m-coupon-box-content">
+
+      <view class="m-coupon-box-title">
+        优惠券领取成功
+        <view class="m-coupon-box-tip">点击右上角分享给好友</view>
+      </view>
+      <scroll-view scroll-y="true" class="m-coupon-box-list">
+        <view class="m-coupon-box-item" wx:for="{{Coupons}}">
+          <label>{{item.activity_rule.voucher_price}}</label>
+          <text>{{item.activity_name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="m-coupon-box-bottom">
+
+    </view>
+    <view class="closeRPK" catchtap="outertouch"><image style="width:50rpx;height:50rpx" src="../../assets/delete.png"></image></view>
+  </view>
+</view>

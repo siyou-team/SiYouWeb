@@ -1,0 +1,102 @@
+<view class="{{show?'cover':''}}">
+
+</view>
+<view class="m-product-all">
+	<view class="m-tab">
+		<view class="m-navbar">
+			<view class="m-navbar-item {{tapindex==1?'m-navbar-item-on':''}}" bindtap="allOrders">
+				全部订单
+			</view>
+			<view class="m-navbar-item {{tapindex==2?'m-navbar-item-on':''}}" bindtap="toBePaid">
+				待支付
+			</view>
+			<view class="m-navbar-item {{tapindex==3?'m-navbar-item-on':''}}" bindtap="receiptOfGoods">
+				<label wx:if="{{kind_id==1201}}">待收货</label>
+				<label wx:else>待服务</label>
+			</view>
+			<view class="m-navbar-item {{tapindex==4?'m-navbar-item-on':''}}" bindtap="toBeEvaluated">
+				已完成
+			</view>
+		</view>
+	</view>
+	<scroll-view wx:if="{{orderlist.length>0}}" scroll-y="true" class="m-orderlist" bindscrolltolower="scrollbottom">
+		<view wx:for="{{orderlist}}" wx:for-item="items" class="m-panel m-panel-access">
+			<view class="m-panel-hd">订单编号：{{items.order_id}}
+				<label>{{items.order_state_name}}</label>
+			</view>
+			<view class="m-product-list">
+				<navigator url="../orderdetail/orderdetail?on={{items.order_id}}" wx:for="{{items.item}}" wx:for-item="item" class="m-product-item">
+					<view class="m-product-img">
+						<image src="{{item.order_item_image}}" mode="aspectFill"/>
+					</view>
+					<view class="m-product-info">
+						<view class="m-product-name">
+						    <!-- items.OrderType == 1 拼团 -->
+							<label><text wx:if="{{items.OrderType==1}}" class="u-tuan-label">团</text>{{item.item_name}}</label>
+							<label class="m-min-name" style="overflow:hiddentext-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1">{{item.activity_type_name==null?"":item.activity_type_name}}</label>
+						</view>
+						<view class="m-product-price">
+							<label>￥</label>{{item.order_item_unit_price}}
+							<text>x{{item.order_item_quantity}}</text>
+						</view>
+					</view>
+				</navigator>
+			</view>
+            <!-- items.Type==2 ???? -->
+            <view class="m-product-item" wx:if="{{items.Type==2}}" style="height:154rpx">
+                <view class="m-product-img">
+                    <image src="{{imgLogo}}" mode="aspectFill" style="width:172rpx;height:172rpx"/>
+                </view>
+                <view class="m-product-info2" style="padding:20rpx 0">
+                    <view class="m-product-name">
+                        <label>{{items.store_name}}</label>
+                    </view>
+                </view>
+			</view>
+			<view class="m-total-info">
+				实付款：<label class="m-total-price">￥{{items.order_payment_amount}}</label>
+			</view>
+			<view class="m-total-btn">
+			<form report-submit="true">
+				<button data-on="{{items.order_id}}" wx:if="{{items.order_is_paid == 3010 && items.order_state_id!=StateCode.ORDER_STATE_CANCEL}}" class="u-link-btn" bindtap="gotopay" formType="submit">去支付</button>
+		   </form>
+		   		<navigator url="../product-comment/product-comment?od={{items.order_id}}" wx:if="{{items.order_buyer_evaluation_status == 0 &&items.order_state_id == 2060}}" class="u-link-btn" >去评价</navigator>
+                <navigator url="../product-comment/product-comment?od={{items.order_id}}" wx:if="{{items.order_buyer_evaluation_status == 1}}" class="u-link-btn" >查看评价</navigator>
+				<view data-on="{{items.order_id}}" wx:if="{{items.kind_id==1202 && items.order_state_id == 2040}}" class="u-link-btn" bindtap="writeOrder">确认服务</view>
+				<view data-on="{{items.order_id}}" wx:if="{{items.if_buyer_cancel}}" class="u-link-btn" bindtap="cancelOrder">取消订单</view>
+				<view data-on="{{items.order_id}}" wx:if="{{items.kind_id==1201 && items.order_state_id == 2040}}" class="u-link-btn" bindtap="confirmReceipt">确认收货</view>
+			    <navigator url="../orderdetail/orderdetail?on={{items.order_id}}" class="u-link-btn">查看详情</navigator>
+			    <!-- ????? -->
+                <navigator wx:if="{{items.Type==2}}" url="../favorableorderdetail/favorableorderdetail?on={{items.order_id}}" class="u-link-btn">查看详情</navigator>
+			</view>
+		</view>
+    <view class="m-loading-box">
+      <block wx:if="{{ispage}}">
+          <view class="u-loadmore">
+              <label class="u-loading"></label>
+              <text class="u-loadmore-tips">正在加载</text>
+          </view>
+          <view>
+            <text></text>
+          </view>
+      </block>
+      <block wx:else>
+          <view class="u-loadmore u-loadmore-line">
+              <text class="u-loadmore-tips">没有更多数据啦！</text>
+          </view>
+      </block>
+    </view>
+	</scroll-view>
+   <navigator url="../productlist/productlist" redirect="true" class="m-nullpage" wx:else>
+    <view class="m-nullpage-middle">
+      <view class="m-null-tip">
+         <label style="font-size:32rpx;">亲~您还没有订单哦，</label><label class="highlight-link">快去看看吧</label>
+      </view>
+    </view>
+  </navigator>
+  <view class="alert" wx:if="{{show}}">
+     <image style="width:50rpx;height:50rpx" src="../../assets/true.png"></image>
+     <text style="margin-left:20rpx" >{{Info}}</text>
+  </view>
+</view>	
+		

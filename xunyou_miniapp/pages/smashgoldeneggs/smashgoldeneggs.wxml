@@ -1,0 +1,106 @@
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../../tpl/coupon_msk.wxml" />
+<block wx:if="{{isPage}}">
+  <view wx:if="{{outdated}}" class="box">
+    <view class="remainingcount">您还有{{RemainingCount}}次机会</view>
+    <view class="egg-box">
+      <view class="hammer" animation="{{animationData}}"></view>
+      <view class="egg-top">
+        <view class="egg {{move?'move1':''}}" bindtap="knock">
+          <image src="{{ImgPath}}goldenEggs{{selectImg==1?'-1':''}}.png" mode="widthFix" data-num="1"></image>
+        </view>
+        <view class="egg {{move?'move2':''}}" bindtap="knock">
+          <image src="{{ImgPath}}goldenEggs{{selectImg==2?'-1':''}}.png" mode="widthFix" data-num="2"></image>
+        </view>
+      </view>
+      <view class="egg-bottom">
+        <view class="egg {{move?'move3':''}}" bindtap="knock">
+          <image src="{{ImgPath}}goldenEggs{{selectImg==3?'-1':''}}.png" mode="widthFix" data-num="3"></image>
+        </view>
+        <view class="egg {{move?'move4':''}}" bindtap="knock">
+          <image src="{{ImgPath}}goldenEggs{{selectImg==4?'-1':''}}.png" mode="widthFix" data-num="4"></image>
+        </view>
+        <view class="egg {{move?'move5':''}}" bindtap="knock">
+          <image src="{{ImgPath}}goldenEggs{{selectImg==5?'-1':''}}.png" mode="widthFix" data-num="5"></image>
+        </view>
+      </view>
+    </view>
+    <view class="winner-box">
+      <view class="winner-title">本期中奖名单</view>
+      <image src="{{ImgPath}}tip-1.png" class="winner-img" mode="widthFix"></image>
+      <view class="winner-list">
+        <block wx:if="{{DrawInfo.winner_rows.items.length >0}}">
+          <swiper autoplay="true" interval="4000" duration="2000" vertical="false" circular="true" class="m-luckylist">
+            <swiper-item wx:for="{{rows}}" wx:for-index="i">
+              <block wx:for="{{DrawInfo.winner_rows.items}}" wx:for-index="j">
+                <view wx:if="{{j>=(i*5) && j<=((i+1)*5)}}" class="m-winner-item ">{{item.user_nickname}}砸中
+                  <label class="prize-name">{{item.awards_name}}</label>
+                </view>
+              </block>
+            </swiper-item>
+          </swiper>
+        </block>
+        <view class="m-winner-item" style="background: #FEE39F;" wx:else>暂无中奖名单数据</view>
+      </view>
+    </view>
+    <view class="rule-box">
+      <image src="{{ImgPath}}tip-2.png" class="winner-img" mode="widthFix"></image>
+      <template is="wxParse" data="{{wxParseData:drawdesc.nodes}}" />
+    </view>
+  </view>
+
+<view class="activity-outdated" wx:else>
+  <view class="m-nullcontent">
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~您来晚了哦</text>
+        <text>该砸金蛋活动已经失效啦~</text>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+
+
+    <view class="u-tap-btn">
+      <navigator url="../myprize/myprize?category=2" class="u-go-home">
+        <view class="iconfont icon-iconcanjiahuodong01"></view>
+      </navigator>
+      <view class="red-dot"></view>
+      <navigator url="../index/index" open-type="switchTab" class="u-go-home">
+        <view class="iconfont icon-shouyeshouye" style="font-size:50rpx;"></view>
+      </navigator>
+    </view>
+    <view class="mskprize" wx:if="{{clickmsk}}" bindtap="cancelprize">
+      <view class="m-result-box bounceIn animated" catchtap="nothing" wx:if="{{PrizeResult.index >= 0}}">
+        <view class="m-result-cancel" bindtap="cancelprize">✕</view>
+        <view class="m-success-text">恭喜你获得了</view>
+        <image src="{{PrizeResult.awards_image}}" class="m-success-img" />
+        <view class="m-success-name">{{PrizeResult.prize}}</view>
+        <view class="m-success-name">{{PrizeResult.awards_title}}</view>
+        <view class="m-success-bottom">
+          <navigator url="../myprize/myprize?category=2" class="succes-checkprice">查看奖品</navigator>
+          <view class="succes-continue" bindtap="cancelprize">继续抽奖</view>
+        </view>
+      </view>
+      <view class="m-result-box wobble animated" catchtap="nothing" wx:else>
+        <view class="m-result-cancel" bindtap="cancelprize">✕</view>
+        <view class="m-failimg-bg">
+          <image src="../../assets/nothing.png" class="m-fail-img" />
+        </view>
+        <view class="m-fail-name">{{DrawInfo.LosingDesc}}</view>
+        <view class="m-fail-button" bindtap="cancelprize">继续抽奖</view>
+      </view>
+    </view>
+    <view class="mskshare" wx:if="{{clickshare}}" bindtap="cancelshare">
+      <!-- <image src="../../assets/share.png" class="share-oncemore" mode="widthFix"></image> -->
+      <view class="share-text">
+        <view>你今天已经没有砸蛋机会了</view>
+        <view>分享给好友或者群聊</view>
+        <view>将额外获得<label>{{DrawInfo.IncreasementFromShare}}次</label>砸蛋机会</view>
+        <button class="u-btn u-btn-default" open-type="share">分享给好友</button>
+      </view>
+    </view>
+    <template is="index_msk" wx:if="{{IsNewUser==1 && CouponAmount>0}}" data="{{CouponAmount, isCancel}}" />
+    <template is="success_msk" wx:if="{{!isCancelSuccess}}" data="{{Coupons}}" />

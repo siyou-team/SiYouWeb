@@ -1,0 +1,146 @@
+<view class="m-banner-img">
+  <view class="member-top" >
+    <navigator url="../personal-data/personal-data" class="m-user-info">
+      <image src="{{UserInfo.user_avatar}}" mode="scaleToFill" />
+      <text>{{UserInfo.user_nickname}}</text>
+    </navigator>
+    <view class="g-flex member-order-tab">
+      <navigator url="../orderlist/orderlist?type=2010&sl=2" class="g-flex-item">
+        <view class="iconfont zc-daifukuan i-type"></view>
+        待支付
+      </navigator>
+      <navigator url="../orderlist/orderlist?type=2040&sl=3" class="g-flex-item">
+        <view class="iconfont zc-daishouhuo i-type"></view>
+        待收货
+      </navigator>
+      <view class="g-flex-item"></view>
+      <navigator url="../orderlist/orderlist?type=2060&sl=4" class="g-flex-item">
+        <view class="iconfont zc-dingdanwancheng i-type"></view>
+        已完成
+      </navigator>
+      <navigator url="../orderlist/orderlist?type=0&sl=1" class="g-flex-item">
+        <view class="iconfont zc-wodedingdan i-type"></view>
+        全部订单
+      </navigator>
+    </view>
+  </view>
+</view>
+<view class="m-panel-bd">
+  <view class="m-media-box m-media-box-small-appmsg">
+    <view class="m-cells {{PersonalCenterList.type==2?'iconBoxLattice':''}}">
+      <block wx:for="{{PersonalCenterList.list}}" wx:for-item="item">
+        <navigator wx:if="{{item.id==1 && item.isShow&&isFightGrp}}" url="../fightgroupsorderlist/fightgroupsorderlist" class="m-cell m-cell-access">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont icon-gouwu "></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>我的拼团</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <navigator wx:if="{{item.id==2 && item.isShow&&(isECashCard||isMemDist)}}" url="../cashaccount/cashaccount" class="m-cell m-cell-access">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont icon-xiaojinku"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>我的佣金</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <view wx:if="{{item.id==3 && item.isShow}}" data-url="../../pages/orderlist/orderlist?kind_id=1202" class="m-cell m-cell-access" bindtap="goTabBar">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont icon-time"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>我的预约</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </view>
+        <navigator wx:if="{{item.id==4 && item.isShow&&isCutPrice}}" url="../mybargainlist/mybargainlist" class="m-cell m-cell-access">
+          <view class="m-cell-hd" style="color:{{item.color}}">
+            <label class="iconfont icon-kanjia"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>我的砍价</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <navigator wx:if="{{item.id==5 && item.isShow&&isCoupon}}" url="../usercoupon/usercoupon" class="m-cell m-cell-access">
+          <view class="m-cell-hd" style="color:{{item.color}}">
+            <label class="iconfont icon-youhuiquan"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>优惠券</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <navigator wx:if="{{item.id==6 && item.isShow&&isMembership}}" url="../member/member" class="m-cell m-cell-access">
+          <view class="m-cell-hd" style="color:{{item.color}}">
+            <label class="iconfont icon-zuanshi"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>会员俱乐部</p>
+            <p style="color:#717171;margin-right:8rpx;float:right;" wx:if="{{PersonalCenterList.type!=2}}">你有{{resource.user_points}}积分</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+
+        <navigator wx:if="{{item.id==7 && item.isShow}}" url="../goodcollection/goodcollection" class="m-cell m-cell-access">
+          <view class="m-cell-hd" style="color:{{item.color}}">
+            <label class="iconfont icon-liwu"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>商品收藏</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <view wx:if="{{item.id==8 && item.isShow}}" bindtap="selectAddress" class="m-cell m-cell-access">
+          <view class="m-cell-hd" style="color:{{item.color}}">
+            <label class="iconfont icon-shouhuodizhi "></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>收货地址</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </view>
+        <navigator wx:if="{{item.id==9 && item.isShow&&isAbtVendor}}" url="../about-store/about-store" class="m-cell m-cell-access">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont icon-store"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p style="margin-left:8rpx">关于商家</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+        <navigator wx:if="{{item.id==10 && item.isShow}}" url="../userfeedback/userfeedback" class="m-cell m-cell-access">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont icon-yonghufankui1"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>用户反馈</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </navigator>
+
+        <view wx:if="{{item.id==11 && item.isShow}}" class="m-cell m-cell-access" bindtap="cleanCache">
+          <view class="m-cell-hd " style="color:{{item.color}}">
+            <label class="iconfont zc-qingchuhuancun"></label>
+          </view>
+          <view class="m-cell-bd m-cell-primary">
+            <p>清除缓存</p>
+            <p style="color:#717171;margin-right:8rpx;float:right;">{{currentSize}}KB</p>
+          </view>
+          <text class="m-cell-ft"></text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</view>
+
+<view class="m-tips" style="margin:30rpx 0" wx:if="{{!IsChannel}}">
+
+</view>
+<view class="m-tips" style="margin:30rpx 0" wx:else>
+  <view class="m-tips-str">{{versionNumber}}</view>
+</view>

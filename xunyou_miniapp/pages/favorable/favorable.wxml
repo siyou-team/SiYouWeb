@@ -1,0 +1,57 @@
+<view style="background:#f8f8f8">
+  <view class="totalMoney" style="background:#fff">
+    <label>消费总金额：</label>
+    <input placeholder="询问服务员后输入" type="digit"  bindinput="inputnum" maxlength="8" bindblur="blur"/>
+  </view>
+
+  <view class="nodiscount" wx:if="{{isshow1}}">
+    <checkbox-group class="check" bindchange="checkboxChange">
+      <label class="checkbox">
+        <checkbox style="transform:scale(0.6);-webkit-transform:scale(0.6);-o-transform:scale(0.6);-moz-transform:scale(0.6);-ms-transform:scale(0.6)"/>输入不参与优惠金额
+      </label>
+    </checkbox-group>
+  </view>
+  <view class="title" style="background"></view>
+  <view class="totalMoney" wx:if="{{isshow}}" style="background:#fff">
+    <label>不参与优惠金额：</label>
+    <input placeholder="询问服务员后输入" type="digit"  bindinput="nodiscount" maxlength="8" bindblur="blur1" value="{{nodiscountvalue}}"/>
+  </view>
+
+  <view class="discount" wx:if="{{isshow1}}">
+    <image src="../../assets/discount-icon.png" style="width:50rpx;height:54rpx;float:left;margin-top:16rpx"></image>
+    <text style="float:left;margin-left:20rpx">{{price||10}}折</text>
+    <text class="highlight12" style="float:right">-￥{{discount}}</text>
+  </view>
+
+  <view class="pay">
+    <view class="coupon" bindtap="suitcouponlist" wx:if="{{CouponEnabeld=='True'&&isCoupon}}">
+      <view>
+        <text>优惠券</text> 
+      </view>
+      <view class="highlight">-￥{{DiscountMoney}}   <text class="m-cell-ft"></text></view>
+    </view>
+    <view class="coupon" wx:if="{{MaxUsableCash>0&&isECashCard}}">
+      <view class="">
+        <text>余额抵扣</text>
+        <text style="font-size:24rpx;color:#717171">(可使用{{MaxUsableCash}}元)</text>
+      </view>
+      <view class="">
+        <text  class="highlight" wx:if="{{isBalance}}" style="position:absolute;right:15%;">{{balance}}元</text>
+        <switch checked bindchange="switchChange" style="transform:scale(0.6);position:absolute;right:0"/>
+      </view>
+    </view>
+    <view class=" payments">
+      <label>实付款</label>
+      <text  class="highlight">{{realPayMoney}}</text>
+    </view>
+  </view>
+  <form report-submit="true" bindsubmit="paysubmit">
+    <button  class="payment" formType="submit">确认买单</button>
+  </form>
+  <view class="explain" wx:if="{{Description}}">
+    <view class="title">买单说明：</view>
+    <view class="content">
+      {{Description}}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,128 @@
+<import src="../../wxParse/wxParse.wxml" />
+ <import src="../../tpl/shareMskTpl.wxml" /> 
+<view style="background: rgb(41, 36, 56);">
+  <view class="bargin" wx:if="{{show==false}}">
+    <view class="part1">
+      <view class="part1_image">
+        <view class="goods">
+          <image src="{{Info.activity_rule.product_image}}" class="goods1"></image>
+          <view wx:if="{{end==1}}">
+            <view class="remaining">距离开始时间仅剩</view>
+            <view class="remaining_time">
+              <view class="time">{{Time.hour}}</view>:
+              <view class="time">{{Time.min}}</view>:
+              <view class="time">{{Time.sec}}</view>
+            </view>
+          </view>
+          <view wx:if="{{end==2}}">
+            <view class="remaining">活动时间仅剩</view>
+            <view class="remaining_time">
+              <view class="time">{{Time.hour}}</view>:
+              <view class="time">{{Time.min}}</view>:
+              <view class="time">{{Time.sec}}</view>
+            </view>
+          </view>
+          <view wx:if="{{end==3}}">
+            <view class="remaining">活动已结束</view>
+          </view>
+          <view class="product_name">{{Info.activity_rule.item_name}}</view>
+          <view class="present">
+            <view class="present_price" style="font-family:'微软雅黑';font-size:32rpx;color:#ffc001;">
+              <label style="color:#fff">原价</label> ￥{{Info.activity_rule.item_unit_price}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="part2">
+      <image src="{{imgPath}}"></image>
+      <view style="width:476rpx">
+        <view class="username">{{user_nickname}}</view>
+        <view class="text1" wx:if="{{Info.is_cut==false&&istrue}}">快试试刀法如何，看看你能砍掉多少</view>
+        <view class="text1" wx:if="{{Info.is_cut&&istrue}}">您总共砍掉
+          <label style="color:#ffc001;">{{Info.cut_row.ach_price}}</label>元，离底价又近了一步</view>
+        <view class="text1" wx:if="{{Info.is_cut==false&&istrue==false}}">您的好友在参加砍价活动，快帮ta砍一刀，试试刀法~</view>
+        <view class="text1" wx:if="{{Info.is_cut&&istrue==false}}">您帮好友砍掉
+          <label style="color:#ffc001;">{{Info.cut_row.ach_price}}</label>元，刀法了得啊</view>
+      </view>
+    </view>
+    <view class="part3">
+      <view class="progressBarBox">
+        <view class="u-progressBar">
+          <view class="u-progressBar-cont" style="width:{{width}}%"></view>
+        </view>
+      </view>
+      <view style="display:flex;justify-content: space-between">
+        <view class="original">
+          <view class="og1">原价</view>
+          <view class="og2" style="margin-top:6rpx">￥{{Info.activity_rule.item_unit_price}}</view>
+        </view>
+        <view class="floor" wx:if="{{isCut==false}}">已砍到底价啦！</view>
+        <view class="cut-off">
+          <view class="cut1">已砍</view>
+          <view class="cut2" style="margin-top:6rpx">￥{{Info.activity_rule.item_unit_price - Info.ac_sale_price}}</view>
+        </view>
+      </view>
+      <!-- 还未砍价，发起人=帮砍人，活动正在进行 -->
+      <view class="button" bindtap="bargin" wx:if="{{Info.is_cut==false&&istrue&&end!=1&&end!=3&&Info.order_id==''}}">开始砍价</view>
+      <!-- 还未砍价，发起人=帮砍人，活动还未开始 -->
+      <view class="button2" wx:if="{{Info.is_cut==false&&istrue&&end==1&&Info.order_id==''}}">开始砍价</view>
+      <!-- 还未砍价，发起人！=帮砍人，活动还未结束 -->
+      <view class="button" bindtap="bargin" wx:if="{{Info.is_cut==false&&istrue==false&&isCut&&end!=1&&end!=3&&Info.order_id==''}}">帮忙砍价</view>
+      <!-- 已经砍价，发起人=帮砍人，活动还未结束，已砍价！=砍价空间 -->
+      <view style="display:flex;justify-content: space-around" wx:if="{{Info.is_cut&&istrue&&isCut&&end!=1&&end!=3&&Info.order_id==''}}">
+        <view class="button1" bindtap="goshop">立即出手</view>
+         <!-- <button open-type="share" class="button1" style="margin:40rpx 0 0 0" bindtap='shareBox'>找人帮砍</button>  -->
+         <button class="button1" style="margin:40rpx 0 0 0" bindtap='shareBox'>找人帮砍</button> 
+      </view>
+      <!-- 已经砍价，发起人=帮砍人，活动还未结束，已砍价=砍价空间 -->
+      <view class="button" bindtap="goshop" wx:if="{{Info.is_cut&&istrue&&isCut==false&&end!=1&&end!=3&&Info.order_id==''}}">立即出手</view>
+      <!-- 已经砍价，发起人！=帮砍人，活动还未结束，已砍价！=砍价空间 -->
+      <view style="display:flex;justify-content: space-around" wx:if="{{Info.is_cut&&istrue==false&&isCut&&end!=1&&end!=3&&Info.order_id==''}}">
+        <navigator url="/pages/bargain/bargain?mid={{mid}}&pid={{pid}}&ac_id={{ac_id}}" class="button1">我也要</navigator>
+         <!-- <button open-type="share" class="button1" style="margin:40rpx 0 0 0" bindtap='shareBox'>找人帮砍</button>  -->
+         <button class="button1" style="margin:40rpx 0 0 0" bindtap='shareBox'>找人帮砍</button> 
+      </view>
+      <!-- 已经砍价，发起人！=帮砍人，活动还未结束，已砍价=砍价空间 -->
+      <navigator url="/pages/bargain/bargain?mid={{mid}}&pid={{pid}}&ac_id={{ac_id}}" wx:if="{{istrue==false&&isCut==false&&end!=1&&end!=3&&Info.order_id==''}}" class="button">我也要</navigator>
+      <!-- 活动已经结束 -->
+      <navigator class="button" url="../bargainlist/bargainlist" wx:if="{{end==3}}">再逛逛</navigator>
+      <navigator class="button" url="../bargainlist/bargainlist" wx:if="{{Info.order_id&&end!=3}}">您已购买，再逛逛</navigator>
+    </view>
+    <view class="part4" wx:if="{{Info.Description}}">
+      <view class="header">活动说明</view>
+      <template is="wxParse" data="{{wxParseData:PromotionRule.nodes}}" />
+    </view>
+    <view class="part5">
+      <view class="header_shadow">
+        <view class="header1">砍价高手</view>
+      </view>
+    </view>
+    <view class="part6" wx:for="{{List}}" wx:for-item="items">
+      <image src="{{items.user_avatar}}" style="border-raduis:50%"></image>
+      <view class="kanjia">
+        <view>{{items.user_nickname}}</view>
+        <view style="margin-top:20rpx">砍掉价格
+          <label style="color:#ffc001;">{{items.ach_price}}</label>元！</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="animation" wx:if="{{show}}">
+    <image src="../../assets/dao.png" animation="{{animation}}" class="{{show?'dao1':''}}" bindtap="rotate"></image>
+    <image src="../../assets/bag.png" wx:if="{{showImg==false}}" class="bag"></image>
+    <image src="../../assets/bagmoney.png" wx:if="{{showImg}}" class="bagmoney"></image>
+    <view class="Price" wx:if="{{showImg}}">
+      <view>成功砍价</view>
+      <view>{{money}}元</view>
+    </view>
+    <view class="success" wx:if="{{showImg}}" bindtap="back">
+      太棒啦
+    </view>
+  </view>
+</view>
+<view class="u-tap-btn">
+  <navigator url="../index/index" open-type="switchTab" class="u-go-home">
+    <view class="iconfont icon-shouyeshouye"></view>
+  </navigator>
+</view>
+ <template is="shareMskTpl" data="{{PageQRCodeInfo}}" /> 

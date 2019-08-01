@@ -1,0 +1,144 @@
+<import src="../../wxParse/wxParse.wxml" />
+<page style="position:absolute;top:0;left:0;width:100%;min-height:100%;background:{{BgConfig.BackgroundObj.type==1?BgConfig.BackgroundObj.bgColor:('url('+BgConfig.BackgroundObj.path+') no-repeat '+ BgConfig.BackgroundObj.pathColor)}};background-size:cover !important;background-position: top center !important;">
+  <view wx:for="{{PageContent}}" wx:for-item="item" class="dropItem" wx:for-index="i">
+    <!--第一个模板-->
+    <view data-id="{{item.eltm1.data.did}}" data-name="{{item.eltm1.data.name}}" data-type="{{item.eltm1.data.selectType}}" data-keyWord="{{item.eltm1.data.keyWord}}" data-AppId="{{item.eltm1.data.AppId}}" data-AppUrl="{{item.eltm1.data.AppUrl}}"  data-MinAppUrl="{{item.eltm1.data.MinAppUrl}}" bindtap="tplGoToPage" class="{{items.flexNum==1?'boxFlexItem1':''}}{{items.flexNum==2?'boxFlexItem2':''}}{{items.flexNum==3?'boxFlexItem3':''}}{{items.flexNum==4?'boxFlexItem4':''}}{{items.flexNum==5?'boxFlexItem5':''}}
+      wx:if="{{item.eltmType==1}}" class="ms {{item.eltm1.layout==1?'s1':''}} {{item.eltm1.layout==2?'s2h':''}} {{item.eltm1.layout==3?'s2v':''}} {{item.eltm1.layout==4?'s4h':''}} {{item.eltm1.layout==5?'s4v':''}} {{item.eltm1.layout==6?'s8h':''}} {{item.eltm1.layout==7?'s8v':''}} {{item.eltm1.layout==8?'s16':''}} {{item.eltm1.layout==9?'s250h':''}} {{item.eltm1.align==1?'fl':''}} {{item.eltm1.align==2?'fr':''}}  {{item.eltm1.border?'borderStyle':''}}"
+      style="padding:{{item.eltm1.paddingTop}}px {{item.eltm1.paddingRight}}px {{item.eltm1.paddingBottom}}px {{item.eltm1.paddingLeft}}px;background-color:{{item.bgColor}}">
+      <image mode="scaleToFill" src="{{item.eltm1.data.path}}"></image>
+    </view>
+    <!--第一个模板-->
+    <!--第二个模板-->
+    <view wx:if="{{item.eltmType==2}}" class="m-RichText" style="padding:{{item.eltm2.padding}}px;background-color:{{item.bgColor}}">
+      <view wx:for="{{indexArray}}" wx:if="{{item.node==('word'+i)}}">
+        <template is="wxParse" data="{{wxParseData:item.nodes}}" />
+      </view>
+    </view>
+    <!--第二个模板-->
+    <!--第三个模板-->
+    <swiper wx:if="{{item.eltmType==3}}" class="m-scrollBox" style="height:{{item.eltm3.height}}px;background-color:{{item.bgColor}}" autoplay="true" indicator-dots="true">
+      <swiper-item wx:for="{{item.eltm3.data}}" wx:for-item="items">
+        <view data-id="{{items.did}}" data-name="{{items.name}}" data-type="{{items.selectType}}" data-keyWord="{{items.keyWord}}" data-AppId="{{items.AppId}}" data-AppUrl="{{items.AppUrl}}"  data-MinAppUrl="{{item.MinAppUrl}}" bindtap="tplGoToPage" >
+          <image mode="scaleToFill" style="width:100%;height:{{item.eltm3.height}}px;" src="{{items.path}}"></image>
+        </view>
+      </swiper-item>
+    </swiper>
+    <!--第三个模板-->
+    <!--第四个模板-->
+    <view wx:if="{{item.eltmType==4}}" class="m_plist {{item.eltm4.listTyle==1?'p1':''}} {{item.eltm4.listTyle==2?'p2':''}} {{item.eltm4.listTyle==3?'p3':''}}{{item.eltm4.listTyle==4?'p4':''}}" style="background-color:{{item.bgColor}}">
+      <view class="m_pitem" wx:for="{{item.eltm4.data}}" wx:for-item="items" data-id="{{items.did}}" data-name="{{items.name}}" data-type="{{items.selectType}}" data-keyWord="{{items.keyWord}}" data-AppId="{{items.AppId}}" data-AppUrl="{{items.AppUrl}}"  data-MinAppUrl="{{item.MinAppUrl}}" bindtap="tplGoToPage">
+        <view class="m_pinfo">
+          <view class="pimg">
+            <image mode="widthFix" style="width:100%;height:100%" src="{{items.path}}"></image>
+          </view>
+          <view class="pname">
+            <label>{{items.name}}</label>
+          </view>
+          <view class="pSelling" wx:if="{{items.ProductTips!='' && item.eltm4.isProductTips}}" style="{{item.eltm4.isPrice?'':'display: inline-block; padding-top: 12px;padding-bottom: 12px'}}">
+            {{items.ProductTips}}
+          </view>
+          <view class="pprice" wx:if="{{item.eltm4.isPrice}}" style="color:{{item.eltm4.priceColor}}">
+            <label>￥</label>{{items.ItemSalePrice}}
+          </view>
+          <view wx:if="{{item.eltm4.btnType==4}}" class="c4" style="background-color:{{item.eltm4.btnColor}};color:{{item.eltm4.btnFontColor}};">
+            <label wx:if="{{item.eltm4.btnType==4}}">{{item.eltm4.btnText}}</label>
+          </view>
+          <view wx:else class="c{{item.eltm4.btnType}}">
+            <label wx:if="{{item.eltm4.btnType==3}}">buy</label>
+
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--第四个模板-->
+    <view wx:if="{{item.eltmType==5}}" class="m-blank" style="height:{{item.eltm5.height}}px;line-height:{{item.eltm5.height}}px;background-color:{{item.bgColor}}">
+    </view>
+
+    <!--第六个模板-->
+    <view wx:if="{{item.eltmType==6}}" class="boxFlex {{item.eltm6.flexDirection==0?'fdRow':''}} {{item.eltm6.flexDirection==1?'fdRowReverse':''}} {{item.eltm6.flexDirection==2?'fdColumn':''}} {{item.eltm6.flexDirection==3?'fdColumnReverse':''}} {{item.eltm6.flexWrap==0?'fwNowrap':''}} {{item.eltm6.flexWrap==1?'fwWrap':''}} {{item.eltm6.flexWrap==2?'fwWrapReverse':''}} {{item.eltm6.justifyContent==0?'jcFlexStart':''}} {{item.eltm6.justifyContent==1?'jcFlexEnd':''}} {{item.eltm6.justifyContent==2?'jcCenter':''}} {{item.eltm6.justifyContent==3?'jcSpaceBetween':''}} {{item.eltm6.justifyContent==4?'jcSpaceAround':''}} {{item.eltm6.alignItems==0?'aiFlexStart':''}} {{item.eltm6.alignItems==1?'aiFlexEnd':''}} {{item.eltm6.alignItems==2?'aiCenter':''}} {{item.eltm6.alignItems==3?'aiBaseline':''}} {{item.eltm6.alignItems==4?'aiStretch':''}}"
+      style="background-color:{{item.bgColor}};">
+      <view wx:for="{{item.eltm6.data}}" wx:for-item="items" data-id="{{items.did}}" data-name="{{items.name}}" data-type="{{items.selectType}}" data-keyWord="{{items.keyWord}}" data-AppId="{{items.AppId}}" data-AppUrl="{{items.AppUrl}}"  data-MinAppUrl="{{item.MinAppUrl}}" bindtap="tplGoToPage" class="boxFlexItem1"
+                              style=" padding-top:{{item.eltm6.paddingTop}}px;padding-bottom:{{item.eltm6.paddingBottom}}px;padding-left:{{item.eltm6.paddingLeftt}}px;padding-right:{{item.eltm6.paddingRight}}px;font-size:{{item.eltm6.fontSize}}px;color:{{item.eltm6.fontColor}} ">
+                                  <view wx:if="{{item.eltm6.type==1}}">{{items.name}}</view>
+                                  <image mode="widthFix" wx:if="{{item.eltm6.type==0}}" src="{{items.path}}" class="img" style="width:{{items.flexNum>1?(items.flexNum+'px'):((w - item.eltm6.paddingLeftt - item.eltm6.paddingRight) + 'px')}}" style="width:100%;height:{{item.eltm6.height}}px;"></image>
+                              </view>
+                          </view>
+                          
+    <!--第六个模板-->
+    <!--第七个模版-->
+    <view wx:if="{{item.eltmType==7}}" class="boxGrids {{item.eltm7.border? 'boxGridsBorder': ''}} ">
+    <view  class="boxGrid {{item.eltm7.border? 'boxGridBorder': ''}} " wx:if="{{item.eltm7.data.length>0}}" wx:for="{{item.eltm7.data}}" wx:for-item="items" style="width:{{(100/item.eltm7.column)}}%;padding-top:{{item.eltm7.paddingTop}}px;padding-bottom:{{item.eltm7.paddingBottom}}px;padding-left:{{item.eltm7.paddingLeftt}}px;padding-right:{{item.eltm7.paddingRight}}px;background-color:{{item.bgColor}};"
+      data-id="{{items.did}}" data-name="{{items.name}}" data-type="{{items.selectType}}" data-keyWord="{{items.keyWord}}" data-AppId="{{items.AppId}}" data-AppUrl="{{items.AppUrl}}"  data-MinAppUrl="{{item.MinAppUrl}}" bindtap="tplGoToPage">
+        <view class="boxGridIcon">
+          <image src="{{items.path}}"></image>
+        </view>
+        <label class="boxGridLabel">{{items.name}}</label>
+      </view>
+    </view>
+    <!--第七个模版-->
+    <!--第八个模版-->
+    <view wx:if="{{item.eltmType==8}}" class="mTel" style="background-color:{{item.bgColor}}" data-tel="{{item.eltm8.tel}}" bindtap="callTel">
+      <label class="iconfont icon-dianhua--copy" style="font-size:60rpx;color:{{item.eltm8.fontColor}}"></label>
+    </view>
+    <!--第八个模版-->
+    <!--第九个模版-->
+    <navigator url="../search/search" class="searchBox" wx:if="{{item.eltmType==9}}" style="background-color:{{item.bgColor}};padding-top:{{item.eltm9.paddingTop}}px;padding-bottom:{{item.eltm9.paddingBottom}}px;padding-left:{{item.eltm9.paddingLeftt}}px;padding-right:{{item.eltm9.paddingRight}}px;">
+      <view class="contentBox">
+        <label class="iconfont icon-sousuo-sousuo"></label><label style="vertical-align: top;display: inline-block;height:80rpx;">{{item.eltm9.tipText}}</label>
+      </view>
+    </navigator>
+    <!--第九个模版-->
+    <!--第十一个模版-->
+      <view wx:if="{{item.eltmType==11}}" class="mCS" style="background-color:{{item.bgColor}}">
+          <label class="iconfont icon-more" style="font-size:60rpx;color:{{item.eltm11.fontColor}}"></label>
+           <contact-button size="27" type="default-dark" session-from="weapp">
+           </contact-button>
+      </view>
+    <!--第十一个模版-->
+    <!--第十二个模版-->
+    <view wx:if="{{item.eltmType==12}}" style="background-color:{{item.bgColor}};padding-top:{{item.eltm12.paddingTop}}px;padding-bottom:{{item.eltm12.paddingBottom}}px;padding-left:{{item.eltm12.paddingLeftt}}px;padding-right:{{item.eltm12.paddingRight}}px;">
+      <video  src="{{item.eltm12.src}}" controls="{{item.eltm12.controls}}" autoplay="{{item.eltm12.autoplay}}" loop="{{item.eltm12.loop}}" style="width:{{item.eltm12.width*2}}rpx;height:{{item.eltm12.height*2}}rpx">
+      </video>
+    </view>
+    <!--第十二个模版-->
+    <!--第十三个模版-->
+    <form class="formBox" bindsubmit="formSubmit"  wx:if="{{item.eltmType==13}}" style="background-color:{{item.bgColor}};">
+      <view wx:for="{{item.eltm13.data}}" wx:for-item="items">
+        <view class="fromInput" wx:if="{{items.type==1}}">
+          <label style="color:{{item.eltm13.labelColor}}">{{items.labelText}}</label>
+          <input type='text' name="{{items.id}}" maxlength="20" placeholder="{{items.placeholderText}}" style='border-Color:{{items.borderColor}};color:{{item.eltm13.textColor}}'/>
+        </view>
+        <view class="fromInput" wx:if="{{items.type==2}}">
+          <label style="color:{{item.eltm13.labelColor}}">{{items.labelText}}</label>
+          <picker mode="date" value="{{formdate}}"  bindchange="bindDateChange">
+            <view class="picker">
+              {{formdate||'请选择时间'}}
+            </view>
+          </picker>
+        </view>
+        <view class="fromInput" wx:if="{{items.type==3}}">
+          <label style="color:{{item.eltm13.labelColor}}">{{items.labelText}}</label>
+          <textarea name="{{items.id}}" maxlength="400" placeholder="{{items.placeholderText}}" style="border-Color:{{items.borderColor}};color:{{item.eltm13.textColor}}">
+                            
+          </textarea>
+        </view>
+        <radio-group name="{{items.id}}" class="fromInput" wx:if="{{items.type==4}}">
+          <label style="color:{{item.eltm13.labelColor}}">{{items.labelText}}</label>
+          <view class="fromCK_item" wx:for="{{items.data}}" wx:for-item="info">
+            <radio color="{{items.selColor}}" value='{{info.text}}' checked="{{index>0?false:true}}" /><text style="color:{{item.eltm13.textColor}}">{{info.text}}</text>
+          </view>
+        </radio-group>
+        <checkbox-group name="{{items.id}}" class="fromInput" wx:if="{{items.type==5}}">
+          <label style="color:{{item.eltm13.labelColor}}">{{items.labelText}}</label>
+          <view class="fromCK_item" wx:for="{{items.data}}" wx:for-item="info">
+            <checkbox color="{{items.selColor}}" value='{{info.text}}' checked="{{index>0?false:true}}"/><text style="color:{{item.eltm13.textColor}}">{{info.text}}</text>
+          </view>
+        </checkbox-group>
+      </view>
+      <view class="formSubmit">
+        <button class="formButtom" formType="submit" style="background-Color:{{item.eltm13.btnColor}};color:{{item.eltm13.fontColor}}">{{item.eltm13.btnText}}</button>
+      </view>
+    </form>
+    <!--第十三个模版-->
+  </view>
+</page>

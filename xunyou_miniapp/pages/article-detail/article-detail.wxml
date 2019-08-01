@@ -1,0 +1,27 @@
+<import src="../../wxParse/wxParse.wxml" />
+<view wx:if="{{flag}}">
+  <view class="header">{{Info.article_title}}</view>
+  <view class="time">发布时间：{{Info.article_add_time}}</view>
+  <view class="center">
+    <template is="wxParse" data="{{wxParseData:article_content.nodes}}" />
+  </view>
+</view>
+  <view class="m-nullcontent" wx:if="{{!flag}}">
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~什么都没有</text>
+        <text>到别处看看吧~~</text>
+      </view>
+    </view>
+  </view>
+
+<view class="u-tap-btn">
+  <button  open-type="share" class="u-go-home" style="position: relative;width:84rpx;height:84rpx;box-shadow:0px 0rpx 0rpx;">
+    <view class="iconfont icon-share" style="position: absolute;left: 19rpx;"></view>
+  </button>
+  <navigator url="../index/index" open-type="switchTab" class="u-go-home" style="box-shadow:0px 0rpx 0rpx;">
+    <view class="iconfont icon-shouyeshouye" style="font-size:50rpx;"></view>
+  </navigator>
+</view>
+

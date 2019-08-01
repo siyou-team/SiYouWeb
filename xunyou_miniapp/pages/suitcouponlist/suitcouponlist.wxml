@@ -1,0 +1,31 @@
+<scroll-view class="m-scrollBox" scroll-y="true" bindscrolltolower="scrollbottom">
+<block wx:if="{{UserCoupon.length>0}}">
+    <view  class="m-coupon-item" bindtap="changecoupon" data-id="{{item.user_voucher_id}}" wx:for="{{UserCoupon}}" wx:for-item="item">
+        <image src="../../assets/coupon_red.png" class="item-bg"></image>
+        <view class="coupon-item-left">
+            <view class="item-left-top">￥<label style="font-size:64rpx">{{item.voucher_price}}</label></view>
+            <view class="item-left-bottom">满{{item.voucher_subtotal}}可用</view>
+        </view>
+        <view class="coupon-item-right">
+            <view class="item-title item-title-black">优惠券</view>
+            <view class="item-middle">
+                <label class="item-time">{{item.user_voucher_activetime}}~{{item.voucher_end_date}}</label>
+            </view>
+            
+            <view class="item-desc">{{item.CouponItem.DiscountTypeName}}</view>
+        </view>
+        <image src="../../assets/checked.png" class="image-checked" wx:if="{{item.user_voucher_id == id_checked}}"/>
+    </view>
+
+    <button class="u-btn u-btn-default" style="margin-top:30rpx;" bindtap="uesnothing">不使用优惠券</button>
+</block>
+  <view class="m-nullcontent" wx:else>
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~什么都没有</text>
+        <text>赶快去领券中心吧</text>
+      </view>
+    </view>
+  </view>
+</scroll-view >

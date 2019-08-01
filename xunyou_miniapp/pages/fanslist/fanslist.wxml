@@ -1,0 +1,53 @@
+<view class="m-tab">
+  <view class="m-navbar">
+    <view class="m-navbar-item {{tapindex==1?'m-navbar-item-on':''}}" bindtap="level1">
+      一级粉丝({{numFan1}})
+    </view>
+    <view class="m-navbar-item {{tapindex==2?'m-navbar-item-on':''}}" bindtap="level2">
+      二级粉丝({{numFan2}})
+    </view>
+    <view class="m-navbar-item {{tapindex==3?'m-navbar-item-on':''}}" bindtap="level3">
+      三级粉丝({{numFan3}})
+    </view>
+  </view>
+</view>
+
+<scroll-view class="m-scrollBox" scroll-y="true" bindscrolltolower="scrollbottom" wx:if="{{UserFans.length>0}}">
+  <view class="m-panel-bd">
+    <view wx:for="{{UserFans}}" wx:for-item="item" class="m-media-box m-media-box-appmsg">
+      <view class="m-media-box-hd">
+        <image class="m-media-box-thumb" src="{{item.user_avatar}}" />
+      </view>
+      <view class="m-media-box-bd">
+        <label class="m-media-box-title">{{item.user_nickname}}</label><label class="m-media-box-num">收益：<text>￥{{item.ugc_amount}}</text></label>
+        <view class="m-media-box-info">
+          <view class="m-media-box-info-meta m-tiem">{{item.user_time_str}}</view>
+          <view class="m-media-box-info-meta m-num">LV{{item.ugc_level}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="m-loading-box">
+    <block wx:if="{{ispage}}">
+      <view class="u-loadmore">
+        <label class="u-loading"></label>
+        <text class="u-loadmore-tips">正在加载</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">没有更多数据啦！</text>
+      </view>
+    </block>
+  </view>
+</scroll-view>
+<view class="m-nullcontent" wx:else>
+  <view class="m-nullpage-middle">
+    <label class="iconfont icon-meiyougengduo"></label>
+    <view class="m-null-tip">
+      <text>亲~什么都没有</text>
+      <text>赶快去圈粉吧!</text>
+    </view>
+  </view>
+</view>

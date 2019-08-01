@@ -1,0 +1,15 @@
+<view class="m-search-box">
+    <view class="u-input-search">
+        <label class="iconfont icon-sousuo-sousuo"></label>
+        <input type="text" bindinput="startinput" focus="true" bindconfirm="search" placeholder="请输入搜索关键字"/>
+        <view class="u-btn" bindtap="search">搜索</view>	
+    </view>
+
+    <view class="search_his_box">
+        <navigator url="../productlist/productlist?pname={{itemName}}" class="u-link-btn" wx:for="{{search_his_list}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">{{itemName}}</navigator>
+    </view>
+
+    <view class="btn_box hide">
+        <button class="u-btn u-btn-default" bindtap="clearSearchStorage">清空浏览记录</button>
+    </view>
+</view>  

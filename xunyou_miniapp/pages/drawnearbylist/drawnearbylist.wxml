@@ -1,0 +1,40 @@
+<scroll-view class="m-nearbylist" scroll-y="true" bindscrolltolower="scrollbottom" wx:if="{{isdata}}">
+  <block wx:if="{{Info.length>0}}">
+    <view class="nearbylist-item" wx:for="{{Info}}">
+      <view class="item-info">
+        <view class="adress-box" bindtap="selectAddress" data-adId="{{item.Id}}">
+          <lable class="item-name">{{item.StoreName}}</lable>
+          <lable class="item-distance">{{item.Distance}}</lable>
+          <view class="item-phone" catchtap="call" data-phone="{{item.StorePhone}}">商家电话：<image style="width:30rpx;height:30rpx;margin-right:10rpx" src="../../img/call.png"></image>{{item.StorePhone}}</view>
+        </view>
+        <view class="item-address" bindtap="gotomap" data-address="{{item.Address}}" data-name="{{item.StoreName}}" data-lat="{{item.AddressLat}}" data-lng="{{item.AddressLng}}">
+          <label class="iconfont icon-shouhuodizhi " style="font-size:40rpx;margin-rightt:15rpx;"></label>
+          <label>{{item.Address}}</label>
+        </view>
+      </view>
+    </view>
+  </block>
+  
+   <view class="m-loading-box">
+    <block wx:if="{{flag}}">
+      <view class="u-loadmore">
+        <label class="u-loading"></label>
+        <text class="u-loadmore-tips">正在加载</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="u-loadmore u-loadmore-line">
+        <text class="u-loadmore-tips">没有更多数据啦！</text>
+      </view>
+    </block>
+  </view> 
+</scroll-view>
+<view class="m-nullcontent" wx:else>
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~什么都没有</text>
+        <text>附近没什么门店!</text>
+      </view>
+    </view>
+  </view>

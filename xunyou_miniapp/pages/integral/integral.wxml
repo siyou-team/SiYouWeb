@@ -1,0 +1,47 @@
+
+  <scroll-view class="m-product-all" scroll-y="true" bindscrolltolower="scrollbottom" style="width:100%;height:100%;position: absolute;">
+    <view class="header">
+      <view class="num">{{resource.user_points}}<label style="font-size:34rpx">分</label></view>
+      <navigator url="../index/index" open-type="switchTab" class="goshop">去赚积分</navigator>
+    </view>
+    <view class="detail">
+      <view class="detail-left">
+        <text class="highlight">积分明细</text>
+      </view>
+    </view>
+    <view wx:if="{{list.length>0}}"  class="m-orderlist" >
+      <view class="detail" wx:for="{{list}}" wx:for-item="items">
+        <view class="detail-left">
+          <text>{{items.points_type_desc}}</text>
+          <view class="time" style="margin-top:20rpx">{{items.points_log_time}}</view>
+        </view>
+
+        <view class="detail-right">{{items.desc}}
+          <label class="money add pprice" wx:if="{{items.points_log_points > 0}}">+{{items.points_log_points}}</label>
+          <label class="money add pprice" wx:else>-{{items.points_log_points}}</label>
+        </view>
+      </view>
+      <view class="m-loading-box">
+        <block wx:if="{{ispage}}">
+          <view class="u-loadmore">
+            <label class="u-loading"></label>
+            <text class="u-loadmore-tips">正在加载</text>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="u-loadmore u-loadmore-line">
+            <text class="u-loadmore-tips">没有更多数据啦！</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view redirect="true" class="m-nullpage" wx:else style="top:20%">
+      <view class="m-nullpage-middle">
+        <view class="m-null-tip">
+          <text>亲~您还没有积分哦</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>	
+
+		

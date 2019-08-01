@@ -1,0 +1,34 @@
+<view wx:if="{{isdata}}" class="m-ad-list">
+    <view wx:for="{{addresslist}}" wx:for-item="item" class="m-ad-item"  data-id="{{item.ud_id}}" >
+        <view wx:if="{{ud_id != 0}}" data-ud_id="{{item.ud_id}}" class="m-ad-l" bindtap="SelectAddress">
+            <view class="m-ad-i-top">
+                <text>{{item.ud_name}}</text><label>{{item.ud_mobile}}</label>
+            </view>
+            <view class="m-ad-i-bot">
+                <label wx:if="{{item.ud_is_default}}" class="m-ad-icon">默认</label><text>{{item.district_info}} {{item.ud_address}}</text>
+            </view>
+        </view>
+        <view wx:else class="m-ad-l">
+            <view class="m-ad-i-top">
+                <text>{{item.ud_name}}</text><label>{{item.ud_mobile}}</label>
+            </view>
+            <view class="m-ad-i-bot">
+                <label wx:if="{{item.ud_is_default}}" class="m-ad-icon">默认</label><text>{{item.district_info}} {{item.ud_address}}</text>
+            </view>
+        </view>
+        <view class="m-ad-edit">
+            <label data-ud_id="{{item.ud_id}}" bindtap="EditAddress" class="iconfont icon-edit"></label>
+            <label class="iconfont icon-delete" data-ud_id="{{item.ud_id}}" bindtap="DelAddress"></label>
+        </view>
+    </view>
+    <button class="u-btn u-btn-default" bindtap="AddAddress" style="margin-top:50rpx;">添加地址</button>
+</view>
+<view  class="m-nullpage" wx:else bindtap="AddAddress">
+	<view class="m-nullpage-middle">
+		<label class="iconfont icon-dizhi"></label>
+		<view class="m-null-tip">
+			<text>想把你的宝贝寄到哪去</text>
+			<text class="m-null-tipck">马上去添加地址</text>
+		</view>
+	</view>
+</view>

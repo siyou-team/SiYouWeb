@@ -1,0 +1,242 @@
+<block wx:if="{{isdata}}">
+	<view class="m-product-all">
+		<view class="m-product-list">
+			<block wx:for="{{cartlist.items}}" wx:for-item="store_items"  wx:for-index="storeindex" >
+				<view class="m-store" data-id="{{store_items.id}}">
+					<view class="m-store-c">
+						<view class="m-store-ck" catchtap="ckStore" data-id="{{store_items.id}}" data-isck="{{store_items.cart_select}}">
+							<icon type="{{store_items.cart_select?'success':'circle'}} " color="{{store_items.cart_select?'#DB384C':'#d5d5d5'}}" />
+						</view>
+						<label class="m-store-info">
+							{{store_items.store_name}}
+						</label>
+					</view>
+					
+				</view>
+				<view wx:for="{{store_items.items}}" wx:for-item="item"  wx:for-index="itemindex" class="m-product-item">
+					<view class="m-item-c {{(item.cart_id==T_Id)?'del':''}}" bindtouchstart="removestart" bindtouchmove="removeload" bindtouchend="removeend" data-id="{{item.cart_id}}">
+						<view class="m-cart-ck" catchtap="ckitem" data-id="{{item.cart_id}}" data-isck="{{item.cart_select}}">
+							<icon type="{{item.cart_select?'success':'circle'}} " color="{{item.cart_select?'#DB384C':'#d5d5d5'}}" />
+						</view>
+						<navigator url="../productdetail/productdetail?pid={{item.item_id}}" class="m-product-img">
+							<image src="{{item.product_image}}" />
+						</navigator>
+						<view class="m-product-info">
+							<navigator url="../productdetail/productdetail?pid={{item.item_id}}">
+								<view class="m-product-name">
+									<label wx:if="{{item.show_typename}}" class="tag tag-orange">{{item.show_typename}}</label>
+									<label>{{item.product_name}}</label>
+									<label class="m-min-name" style="overflow:hiddentext-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1">{{item.item_spec_name?item.item_spec_name:""}}</label>
+								</view>
+								<view class="m-product-price">
+									<label>¥</label>{{item.item_sale_price}} <label class="pre-info-price" wx:if="{{item.discount_sale_money}}">-¥{{item.discount_sale_money}}</label>
+								</view>
+							</navigator>
+							<block >
+								<view class="u-cart-num">
+									<view class="u-num-btn" catchtap="sub" data-num="{{item.cart_quantity}}" data-stock="{{item.cart_quantity+item.buy_limit}}" data-cid="{{item.cart_id}}">-</view>
+									<input type="number" value="{{item.cart_quantity}}" bindblur="writenum" data-stock="{{item.cart_quantity+item.buy_limit}}" data-cid="{{item.cart_id}}" />
+									<view class="u-num-btn" catchtap="add" data-num="{{item.cart_quantity}}" data-stock="{{item.cart_quantity+item.buy_limit}}" data-cid="{{item.cart_id}}">+</view>
+								</view>
+							</block>
+							<!-- <block wx:else>
+								<view class="u-cart-num">
+									<view class="u-num-btn">-</view>
+									<input type="text" value="{{item.cart_quantity}}" />
+									<view class="u-num-btn">+</view>
+								</view>
+							</block> -->
+						</view>
+						<view class="u-del" data-id="{{item.cart_id}}" catchtap="delcart">
+							删除
+						</view>
+					</view>
+					<!-- 模板调用单品加价购、赠品、满减 -->
+					<!--
+					pulse_gift_cart
+					pulse_bargains
+					pulse_bargains_cart
+					pulse_reduction
+					-->
+					<!-- pulse_gift_cart -->
+					<view wx:if="{{item.pulse_gift_cart.length > 0}}"  wx:for="{{item.pulse_gift_cart}}" wx:for-item="pluse" wx:for-index="giftindex"  class="m-item-act" data-id="{{pluse.cart_id}}">
+						<view class="m-cart-ck" catchtap="ckitem" data-id="{{item.cart_id}}" data-isck="{{item.cart_select}}">
+						</view>
+                        <navigator url="../productdetail/productdetail?pid={{pluse.item_id}}" class="m-product-img m-act-img">
+                            <image src="{{pluse.product_image}}" />
+                        </navigator>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}"  class="act-item-name" style="height:100rpx;line-height:100rpx;font-size: 28rpx;">
+							<label>【赠品】{{pluse.product_item_name}}</label>
+						</navigator>
+						<view wx:if="{{pluse.selectable}}" class="m-act-change"  data-storeindex="{{storeindex}}"   data-itemindex="{{itemindex}}"   data-giftindex="{{giftindex}}" data-isck="{{item.cart_select}}"  bindtap="chooseItemGift">修改</view>
+                    </view>
+
+					<!-- pulse_reduction -->
+					<block wx:if="{{item.pulse_reduction.length > 0}}"  wx:for="{{item.pulse_reduction}}" wx:for-item="pluse" wx:for-index="reductionindex">
+						<view wx:if="{{pluse.reduceMoney > 0}}" class="m-item-act">
+							<view class="m-cart-ck" catchtap="ckitem" data-id="{{item.cart_id}}" data-isck="{{item.cart_select}}">
+							</view>
+							<view class="m-product-img  icon-activity icon-activity-reduction">
+							</view>
+							<view class="act-item-name" style="height:160rpx;line-height:160rpx;font-size: 28rpx;">
+								<label>【满减 -¥{{pluse.reduceMoney}}】</label> <!--{{pluse.actName}}-->
+							</view>
+						</view>
+					</block>
+
+
+					<!-- pulse_bargains_cart -->
+					<view wx:if="{{item.pulse_bargains_cart.length > 0}}"  wx:for="{{item.pulse_bargains_cart}}" wx:for-item="pluse" wx:for-index="bargainsindex"  class="m-item-act" data-id="{{pluse.cart_id}}">
+						<view class="m-cart-ck" catchtap="ckitem" data-id="{{pluse.cart_id}}" data-isck="{{pluse.cart_select}}">
+							<icon type="{{pluse.cart_select?'success':'circle'}} " color="{{pluse.cart_select?'#DB384C':'#d5d5d5'}}" />
+						</view>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}" class="m-product-img m-act-img">
+							<image src="{{pluse.product_image}}" />
+						</navigator>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}"  class="act-item-name" style="height:100rpx;line-height:100rpx;font-size: 28rpx;width:400rpx;">
+							<label>【加价购】{{pluse.product_item_name}}</label>
+						</navigator>
+
+						<block >
+							<view class="u-cart-num" style="right:122rpx;">
+								<view class="u-num-btn" catchtap="sub" data-num="{{pluse.cart_quantity}}" data-stock="{{pluse.cart_quantity + pluse.buy_limit}}" data-cid="{{pluse.cart_id}}">-</view>
+								<input type="number" value="{{pluse.cart_quantity}}" bindblur="writenum" data-stock="{{pluse.cart_quantity + pluse.buy_limit}}" data-cid="{{pluse.cart_id}}" />
+								<view class="u-num-btn" catchtap="add" data-num="{{pluse.cart_quantity}}" data-stock="{{pluse.cart_quantity + pluse.buy_limit}}" data-cid="{{pluse.cart_id}}">+</view>
+							</view>
+						</block>
+					</view>
+
+					<!-- pulse_bargains -->
+					<block wx:if="{{item.pulse_bargains.length > 0}}"  wx:for="{{item.pulse_bargains}}" wx:for-item="pluse" wx:for-index="bargainsindex">
+						<view class="m-item-act" wx:if="{{pluse.length > 0 || pluse.actId}}" data-id="{{pluse.cart_id}}">
+							<view class="m-cart-ck" wx:if="{{pluse.selectable}}" data-storeindex="{{storeindex}}"   data-itemindex="{{itemindex}}"   data-bargainsindex="{{bargainsindex}}"  data-isck="{{item.cart_select}}" bindtap="chooseItemBargains">
+								<icon class="iconfont icon-add " style="font-size:44rpx;position:relative;top:28rpx;color:green;" />
+							</view>
+							<view class="m-cart-ck" wx:else catchtap="chooseRaiseBuyItem" data-item_id="{{pluse.item_id}}" data-activity_id="{{pluse.actId}}" data-activity_item_id="{{item.item_id}}" data-cart_type="1"   data-isck="{{item.cart_select}}">
+								<icon type="{{isckall?'success':'circle'}}" color="{{isckall?'#DB384C':'#d5d5d5'}}" />
+							</view>
+
+							<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}" class="m-product-img m-act-img">
+								<image src="{{pluse.product_image}}" />
+							</navigator>
+							<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}"  class="act-item-name" style="height:100rpx;line-height:100rpx;font-size: 28rpx;">
+								<label>【加价购】{{pluse.actName}}</label>
+							</navigator>
+						</view>
+					</block>
+				</view>
+
+
+
+				<!-- 店铺加价购 pulse_bargains -->
+				<view class="m-product-item" wx:if="{{store_items.bargains.length > 0}}"  wx:for="{{store_items.bargains}}" wx:for-item="pluse" wx:for-index="bargainsindex">
+					<view class="m-item-act" wx:if="{{pluse.length > 0 || pluse.actId}}" data-id="{{pluse.cart_id}}">
+						<view class="m-cart-ck" wx:if="{{pluse.selectable}}" data-storeindex="{{storeindex}}"   data-itemindex="{{itemindex}}"   data-bargainsindex="{{bargainsindex}}"  data-isck="{{item.cart_select}}" bindtap="chooseStoreBargains">
+							<icon class="iconfont icon-add " style="font-size:44rpx;position:relative;top:28rpx;color:green;" />
+						</view>
+						<view class="m-cart-ck" wx:else catchtap="chooseRaiseBuyItem" data-item_id="{{pluse.item_id}}" data-activity_id="{{pluse.actId}}" data-activity_item_id="{{item.item_id}}" data-cart_type="1"   data-isck="{{item.cart_select}}">
+							<icon type="{{isckall?'success':'circle'}}" color="{{isckall?'#DB384C':'#d5d5d5'}}" />
+						</view>
+
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}" class="m-product-img m-act-img">
+							<image src="{{pluse.product_image}}" />
+						</navigator>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}"  class="act-item-name" style="height:100rpx;line-height:100rpx;font-size: 28rpx;">
+							<label>【加价购】{{pluse.actName}}</label>
+						</navigator>
+					</view>
+				</view>
+
+
+
+				<!-- 店铺赠品 activitys.gift -->
+				<view class="m-product-item" wx:if="{{store_items.activitys.gift.length > 0}}"  wx:for="{{store_items.activitys.gift}}" wx:for-item="pluse" wx:for-index="giftindex">
+					<view class="m-item-act" wx:if="{{pluse.length > 0 || pluse.actId}}" data-id="{{pluse.cart_id}}">
+						<view class="m-cart-ck" catchtap="ckitem" data-id="{{item.cart_id}}" data-isck="{{item.cart_select}}">
+						</view>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}" class="m-product-img m-act-img">
+							<image src="{{pluse.product_image}}" />
+						</navigator>
+						<navigator url="../productdetail/productdetail?pid={{pluse.item_id}}"  class="act-item-name" style="height:100rpx;line-height:100rpx;font-size: 28rpx;">
+							<label>【赠品】{{pluse.product_item_name}}</label>
+						</navigator>
+						<view wx:if="{{pluse.selectable}}" class="m-act-change"  data-storeindex="{{storeindex}}"   data-itemindex="{{itemindex}}"   data-giftindex="{{giftindex}}" data-isck="{{item.cart_select}}"  bindtap="chooseStoreGift">修改</view>
+					</view>
+				</view>
+
+
+
+				<!-- 店铺满减 activitys.reduction  -->
+				<view class="m-product-item" wx:if="{{store_items.activitys.reduction.length > 0}}"  wx:for="{{store_items.activitys.reduction}}" wx:for-item="pluse" wx:for-index="reductionindex">
+					<view class="m-item-act" wx:if="{{(pluse.length > 0 || pluse.actId) && (pluse.reduceMoney > 0) }}" data-id="{{pluse.cart_id}}">
+						<view class="m-cart-ck" catchtap="ckitem" data-id="{{pluse.cart_id}}" data-isck="{{pluse.cart_select}}">
+						</view>
+						<view class="m-product-img  icon-activity icon-activity-reduction">
+						</view>
+						<view class="act-item-name" style="height:160rpx;line-height:160rpx;font-size: 28rpx;">
+							<label>【满减 -¥{{pluse.reduceMoney}}】</label> <!--{{pluse.actName}}-->
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<view class="u-cleanbox"></view>
+	<view class="m-footer-btn">
+		<view class="m-footer-btn-list">
+			<view class="m-footer-btn-item">
+				<view class="m-cart-ck" bindtap="ckall" data-isck="{{isckall}}">
+					<icon type="{{isckall?'success':'circle'}}" color="{{isckall?'#DB384C':'#d5d5d5'}}" />
+				</view>
+				<view class="m-cart-del" bindtap="delAll">
+					<label class="iconfont icon-delete"></label>
+				</view>
+			</view>
+			<view class="m-footer-btn-item m-cart-total">
+				<view>合计：<label>¥</label><text>{{cartlist.orderSelMoneyAmount}}</text></view>
+				<view>不含运费</view>
+			</view>
+		</view>
+		<view class="m-footer-btn-main" bindtap="submitorder">
+			结算({{cartlist.Total}})
+		</view>
+	</view>
+
+	<view class="m-panel-sp {{selectsp==0?'hide':''}} " bindtap="closesp">
+		<view class="m-panel-sp-content {{selectct==0?'bounceOutDown animated':'bounceInUp animated'}}" catchtap>
+			<view class="m-panel-sp-pinfo">
+				<view class="m-panel-sp-pname"><view class="m-pstock">选择商品</view>
+				</view>
+				<icon type="cancel" class="m-panel-sp-icon" color="#888" catchtap="closesp" />
+			</view>
+			<scroll-view class="m-panel-sp-listbox" scroll-y="true">
+				<block wx:for="{{spdata.selecInfo}}" wx:for-item="select_items" wx:key="key1">
+					<view class="m-panel-sp-listbox-item" catchtap="chooseRaiseBuyItem" data-item_id="{{select_items.item_id}}" data-activity_id="{{spdata.actId}}" data-activity_item_id="{{spdata.activity_item_id}}" data-cart_type="{{cart_type}}" >
+						<view class="m-panel-sp-labellist" wx:if="{{true}}">
+							<view class="m-panel-sp-pimg">
+								<image src="{{select_items.product_image}}" />
+							</view>
+							<view class="m-panel-sp-pname">{{select_items.product_item_name}}
+
+								<view class="m-product-price">
+									<label>¥</label>{{select_items.item_sale_price}} <label class="pre-info-price" wx:if="{{select_items.discount_sale_money}}">-¥{{select_items.discount_sale_money}}</label>
+								</view>
+
+							</view>
+						</view>
+					</view>
+				</block>
+				<!-- <view style="height:96rpx;width:100%;"></view> -->
+			</scroll-view>
+		</view>
+	</view>
+</block>
+<navigator url="../index/index" open-type="switchTab" class="m-nullpage" wx:else>
+	<view class="m-nullpage-middle">
+		<label class="iconfont icon-konggouwuche"></label>
+		<view class="m-null-tip">
+			<text>购物车空空如也</text>
+			<text>去挑几件中意的商品吧</text>
+		</view>
+	</view>
+</navigator>

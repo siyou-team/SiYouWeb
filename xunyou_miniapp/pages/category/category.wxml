@@ -1,0 +1,46 @@
+<view class="main">
+    <view class="categroy-left">
+        <view wx:for="{{category}}" wx:key="category_order" data-id="{{item.category_id}}" data-index="{{index}}"
+            bindtap="switchTab"
+            class="cate-list {{curIndex === index?'on':''}}">{{item.category_name}}</view>
+    </view>
+
+    <scroll-view class="categroy-right" scroll-y="{{isScroll}}" scroll-into-view="{{toView}}" scroll-with-animation="true">
+        <block wx:if="{{detail.length > 0}}">
+        <block wx:for="{{detail}}" wx:for-index wx:key="category_order">
+            <!--<view id="{{item.category_id}}" class="cate-box">-->
+                <!--<view class="cate-banner">
+                    <image src="{{item.banner}}"></image>
+                </view>-->
+                 <!--<view class="cate-title">
+                    <text>{{item.category_name}}</text>
+                </view>-->
+                    <view class="product-list">
+                        <navigator url="../productlist/productlist?category_id={{item.id}}&cname={{item.category_name}}">
+                            <image src="{{item.category_image}}"></image>
+                            <view class="classname category-level-2"><text>{{item.category_name}}</text></view>
+                        </navigator>
+                    </view>
+                    <view class="product-list" wx:for="{{item.sub}}" wx:key="category_order" wx:for-item="val">
+                        <navigator url="../productlist/productlist?category_id={{val.id}}&cname={{val.category_name}}">
+                            <image src="{{val.category_image}}"></image>
+                            <view class="classname"><text>{{val.category_name}}</text></view>
+                        </navigator>
+                    </view>
+            <!--</view>-->
+        </block>
+        </block>
+        <block wx:else>
+        <block wx:for="{{product_items}}" wx:for-index wx:key="category_order">
+                    <view class="product-list">
+                        <navigator url="../productdetail/productdetail?pid={{item.item_id}}">
+                            <image src="{{item.product_image}}" style="width:140rpx;height:140rpx;"></image>
+                            <view class="classname category-level-2  text-overflow"><text>{{item.product_name}}</text></view>
+                        </navigator>
+                    </view>
+            <!--</view>-->
+        </block>
+        </block>
+    </scroll-view>
+
+</view>

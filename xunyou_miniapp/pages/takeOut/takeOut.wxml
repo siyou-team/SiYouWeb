@@ -1,0 +1,17 @@
+
+<import src="../../tpl/indexTpl/indexTpl.wxml" />
+<view class="m-banner">
+  <image src="{{commonTPL.shopInfo.BackGroundPath}}" />
+  <view class="m-content-box">
+  </view>
+  <view class="m-logo">
+    <image src="{{commonTPL.shopInfo.WapLogoPath}}" />
+  </view>
+  <view class="m-shopinfo">
+    <label>{{commonTPL.shopInfo.StoreName}}</label>
+    <label class="iconfont icon-qijiandian"></label>
+    <text wx:if="{{commonTPL.shopInfo.ShopFeatures!=''}}">公告：{{commonTPL.shopInfo.ShopFeatures}}</text>
+  </view>
+</view>
+
+<template  is="shop6" data="{{commonTPL}}" />

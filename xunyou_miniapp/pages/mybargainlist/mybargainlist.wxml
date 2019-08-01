@@ -1,0 +1,65 @@
+<view class="m-product-all">
+  <view class="m-tab">
+    <view class="m-navbar">
+      <view class="m-navbar-item {{tapindex==1?'m-navbar-item-on':''}}" bindtap="allOrders">
+        我发起的
+      </view>
+      <view class="m-navbar-item {{tapindex==2?'m-navbar-item-on':''}}" bindtap="toBePaid">
+        我参与的
+      </view>
+    </view>
+  </view>
+  <scroll-view wx:if="{{orderlist.length>0}}" scroll-y="true" class="m-orderlist" bindscrolltolower="scrollbottom">
+    <view wx:for="{{orderlist}}" wx:for-item="items" class="m-panel m-panel-access">
+      <!-- <view class="m-panel-hd">订单编号：{{items.order_id}}
+      <label wx:if="{{items.IsCancel}}">拼团失败</label>
+      <label wx:if="{{items.IsSuccess}}">拼团成功</label>
+      <label wx:if="{{!items.IsSuccess && !items.IsCancel}}">拼团中</label>
+      </view> -->
+      <view class="m-product-list">
+        <navigator url="../bargain/bargain?mid={{items.activity_id}}&pid={{items.activity_rule.item_id}}&sid={{items.buyer_user_id}}&ac_id={{items.ac_id}}" class="m-product-item">
+          <view class="m-product-img">
+            <image src="{{items.activity_rule.product_image}}" mode="aspectFill" />
+          </view>
+          <view class="m-product-info">
+            <view class="m-product-name" style="height:90rpx">
+              <label>{{items.activity_rule.item_name}}</label>
+            </view>
+            <view class="progressBarBox">
+              <view class="u-progressBar">
+                <view class="u-progressBar-cont" style="width:{{100*(items.activity_rule.item_unit_price - items.ac_sale_price) / (items.activity_rule.item_unit_price - items.activity_rule.cut_down_min_limit_price)}}%"></view>
+              </view>
+            </view>
+            <!-- <view class="progress-bar">
+              <view class="left" style="width:{{100*items.CutPricePercent}}%"></view>
+            </view> -->
+            <view class="m-product-price" style="display:flex;margin-top:16rpx;font-size:24rpx;justify-content: space-between;padding-right:36rpx">
+              <view><label style="color:#717171">原价</label> ￥{{items.activity_rule.item_unit_price}}</view>
+              <view style="color:#717171">{{items.activity_rule.item_unit_price - items.ac_sale_price}}</view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+    <view class="m-loading-box">
+      <block wx:if="{{ispage}}">
+        <view class="u-loadmore">
+          <label class="u-loading"></label>
+          <text class="u-loadmore-tips">正在加载</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="u-loadmore u-loadmore-line">
+          <text class="u-loadmore-tips">没有更多数据啦！</text>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+  <navigator url="../bargainlist/bargainlist" redirect="true" class="m-nullpage" wx:else>
+    <view class="m-nullpage-middle">
+      <view class="m-null-tip">
+        <label style="font-size:32rpx;">亲~您还没有砍价哦，</label><label class="highlight-link">快去看看吧</label>
+      </view>
+    </view>
+  </navigator>
+</view>

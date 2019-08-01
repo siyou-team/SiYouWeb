@@ -1,0 +1,85 @@
+<view class="{{flag||flag1?'cover':''}}" style="z-index:999">
+
+</view>
+<view style="background:#f7f7f7">
+  <view class="header">
+    <view class="header-top">
+      <view class="message">
+        <image style="margin-left:2px" src="{{UserInfo.user_avatar}}"></image>
+        <view class="grade">
+          {{message.user_level_name||'普通会员'}}
+        </view>
+      </view>
+    </view>
+    <view class="header-bottom">
+      <navigator url="../member-growth/member-growth" class="growth">
+        <view class="num">{{message.user_growth}}</view>
+        <view>成长值</view>
+      </navigator>
+      <navigator url="../integral/integral" class="integral">
+          <view class="num">{{message.user_points}}</view>
+          <view>积分</view>
+      </navigator>
+    </view>
+  </view>
+  <block wx:if="{{false}}">
+    <view class="prerogative">
+      <view class="prerogative-top">
+        <text class="highlight" style="margin-left:10rpx;">会员权益</text>
+      </view>
+    </view>
+    <view class="prerogative1" wx:if="{{message.Discount==10||message.Discount==0}}">
+      <view class="prerogative-bottom">
+        尊敬的会员，您现在无会员折扣可以使用。
+      </view>
+    </view>
+    <view class="prerogative1" wx:else>
+      <view class="prerogative-bottom">
+        尊敬的会员，您在购物时可享受{{message.Discount}}折优惠
+      </view>
+    </view>
+  </block>
+  <view class="prerogative">
+    <view class="prerogative-top">
+      <text class="highlight" style="margin-left:10rpx;">任务中心</text>
+    </view>
+  </view>
+  <view class="mission">
+    <view class="draw">
+      <image src="../../assets/pinlun.png"></image>
+      <text>签到领积分</text>
+    </view>
+    <view class="{{isSign?'color':'button'}}" bindtap="click">
+      签到
+    </view>
+  </view>
+
+  <view class="mission">
+    <view class="draw">
+      <image src="../../assets/shop.png"></image>
+      <text>购物领积分</text>
+    </view>
+    <navigator open-type="switchTab" class="button" url="../index/index">
+      去购物
+    </navigator>
+  </view>
+
+  <view class="mission">
+    <view class="draw">
+      <image src="../../assets/qiandao.png"></image>
+      <text>评价领积分</text>
+    </view>
+    <navigator class="button" url="../orderlist/orderlist?type=2060&sl=4">
+      去评价
+    </navigator>
+  </view>
+  <view class="alert" wx:if="{{flag}}" style="z-index:1000">
+     <image style="width:50rpx;height:50rpx" src="../../assets/true.png"></image>
+    <text style="margin-left:20rpx" >{{signMsg}}</text>
+  </view>
+  <view class="alert1" wx:if="{{flag1}}" style="z-index:1000">
+    <view>抱歉！今日您已签到</view>
+      <view style="margin-top:20rpx">~明天再来哦~</view>
+  </view>
+</view>
+

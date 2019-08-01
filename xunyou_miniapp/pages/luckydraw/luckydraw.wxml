@@ -1,0 +1,99 @@
+<import src="../../wxParse/wxParse.wxml" />
+<import src="../../tpl/coupon_msk.wxml" />
+
+<block wx:if="{{isPage}}">
+
+<view class="m-draw-box" wx:if="{{outdated}}">
+  <view class="m-title">
+    <view class="m-title-main">{{DrawInfo.activity_title}}</view>
+    <view class="m-title-sub">幸运大抽奖</view>
+    <view class="m-title-time">{{DrawInfo.activity_starttime}} ~ {{DrawInfo.activity_endtime}}</view>
+  </view>
+  <view class="m-table">
+    <view wx:for="{{PrizeList}}" wx:for-index="i" wx:for-item="item" class="m-table-td {{(i+1)==index?'select-table':''}}" >
+      <image src="{{item.awards_image}}"></image>
+      <view class="price-text">{{item.awards_name}}</view>
+    </view>
+    <view class="m-table-btn" bindtap="LuckDraw">
+      <image src="../../assets/click.png"></image>
+    </view>
+  </view>
+  <view class="m-tip">您还有<label>{{RemainingCount}}次</label>抽奖机会，快来试试手气</view>
+  <view class="m-model-outline">
+    <view class="m-model yellow">中奖名单</view>
+  </view>
+  <block wx:if="{{DrawInfo.winner_rows.items.length >0}}">
+    <swiper autoplay="true" interval="4000" duration="2000" class="m-luckylist" vertical="false" circular="true">
+      <swiper-item wx:for="{{rows}}" wx:for-index="i">
+        <block wx:for="{{DrawInfo.winner_rows.items}}" wx:for-index="j">
+          <view wx:if="{{j>=(i*3) && j<=((i+1)*3)}}" class="m-luckylist-item">
+            • {{item.user_nickname}}抽中
+            <label>{{item.awards_name}}</label>
+          </view>
+        </block>
+      </swiper-item>
+    </swiper>
+  </block>
+  <view class="m-winner-nothing" wx:else>暂无中奖名单数据</view>
+  <view class="m-model-outline">
+    <view class="m-model blue">活动规则</view>
+  </view>
+  <view class="m-rule">
+    <template is="wxParse" data="{{wxParseData:drawdesc.nodes}}" />
+  </view>
+</view>
+<view class="activity-outdated" wx:else>
+  <view class="m-nullcontent">
+    <view class="m-nullpage-middle">
+      <label class="iconfont icon-meiyougengduo"></label>
+      <view class="m-null-tip">
+        <text>亲~您来晚了哦</text>
+        <text>该抽奖活动已经失效啦~</text>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+
+
+<view class="u-tap-btn">
+  <navigator url="../myprize/myprize?category=1" class="u-go-home">
+    <view class="iconfont icon-iconcanjiahuodong01"></view>
+  </navigator>
+  <view class="red-dot"></view>
+  <navigator url="../index/index" open-type="switchTab" class="u-go-home">
+    <view class="iconfont icon-shouyeshouye" style="font-size:50rpx;"></view>
+  </navigator>
+</view>
+<view class="mskprize" wx:if="{{clickmsk}}" bindtap="cancelprize">
+  <view class="m-result-box bounceIn animated" catchtap="nothing" wx:if="{{PrizeResult.index >= 0}}">
+    <view class="m-result-cancel" bindtap="cancelprize">✕</view>
+    <view class="m-success-text">恭喜你获得了</view>
+    <image src="{{PrizeList[PrizeResult.WinningPrizeIndex].PrizeImage}}" class="m-success-img" />
+    <view class="m-success-name">{{PrizeResult.WinningPrizeName}}</view>
+    <view class="m-success-name">{{PrizeResult.PrizeSendingMessage}}</view>
+    <view class="m-success-bottom">
+      <navigator url="../myprize/myprize?category=1" class="succes-checkprice">查看奖品</navigator>
+      <view class="succes-continue" bindtap="cancelprize">继续抽奖</view>
+    </view>
+  </view>
+  <view class="m-result-box wobble animated" catchtap="nothing" wx:else>
+    <view class="m-result-cancel" bindtap="cancelprize">✕</view>
+    <view class="m-failimg-bg">
+      <image src="../../assets/nothing.png" class="m-fail-img" />
+    </view>
+    <view class="m-fail-name">{{DrawInfo.LosingDesc}}</view>
+    <view class="m-fail-button" bindtap="cancelprize">继续抽奖</view>
+  </view>
+</view>
+<view class="mskshare" wx:if="{{clickshare}}" bindtap="cancelshare">
+  <!-- <image src="../../assets/share.png" class="share-oncemore" mode="widthFix"></image> -->
+  <view class="share-text">
+    <view>你今天已经没有抽奖机会了</view>
+    <view>分享给好友或者群聊</view>
+    <view>将额外获得<label>{{DrawInfo.IncreasementFromShare}}次</label>抽奖机会</view>
+    <button class="u-btn u-btn-default" open-type="share">分享给好友</button>
+  </view>
+</view>
+<template is="index_msk" wx:if="{{IsNewUser==1 && CouponAmount>0}}" data="{{CouponAmount, isCancel}}" />
+<template is="success_msk" wx:if="{{!isCancelSuccess}}" data="{{Coupons}}" />

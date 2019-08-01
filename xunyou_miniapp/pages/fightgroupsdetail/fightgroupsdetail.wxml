@@ -1,0 +1,92 @@
+<import src="../../tpl/shareMskTpl.wxml" />
+<import src="../../tpl/coupon_msk.wxml" />
+<import src="../../wxParse/wxParse.wxml" />
+<scroll-view scroll-y="true" bindscrolltolower="fightPage" style="position: absolute;height:100%;width:100%;">
+<view class="m-product-list">
+  <navigator url="../productdetail/productdetail?pid={{GbInfo.activity_rule.item_id}}&gb_id={{GbInfo.gb_id}}" class="m-product-item m-product-GP">
+    <view class="m-product-img">
+      <image src="{{GbInfo.activity_rule.product_image}}" />
+    </view>
+    <view class="m-product-info">
+      <view class="m-product-name">
+        <label>{{GbInfo.activity_rule.item_name}}</label>
+        <view class='groupNumber' style='margin-top:18rpx'>拼团省{{GbInfo.activity_rule.item_unit_price - GbInfo.activity_rule.group_sale_price}}</view>
+      </view>
+      <view style='position:absolute;bottom:20rpx;'>
+        <view class="groupNumber" style='margin-bottom:12rpx'>
+          <!-- <label class="iconfont icon-icon"></label> -->
+          <text>{{GbInfo.gb_quantity}}</text>人团</view>
+        <view class="m-product-price">
+          <label>¥</label>{{GbInfo.activity_rule.group_sale_price}}
+          <label class="u-del-price">¥{{GbInfo.activity_rule.item_unit_price}}</label>
+        </view>
+      </view>
+
+      <view class="isSucces">
+        <image class='simg' wx:if="{{1==GbInfo.gb_enable}}" src='https://static.shopsuite.cn/xcxfile/appicon/groupbooking/success.png'></image>
+        <image class='simg' wx:if="{{0==GbInfo.gb_enable}}" src='https://static.shopsuite.cn/xcxfile/appicon/groupbooking/failure.png'></image>
+      </view>
+    </view>
+  </navigator>
+  <view class="headPhoto">
+    <view class="personPhoto" wx:for="{{GroupUsers}}">
+      <image class="photo" src="{{item.user_avatar}}"></image>
+      <image class="photo-icon" src="https://static.shopsuite.cn/xcxfile/appicon/groupbooking/group_leader.png" wx:if="{{GbInfo.user_id == item.user_id}}"></image>
+    </view>
+    <view class="personPhoto" wx:for="{{GbInfo.gb_quantity>8?(8-GbInfo.gb_amount_quantity):(GbInfo.gb_quantity-GbInfo.gb_amount_quantity)}}">
+      <image class="photo-bg" src='https://static.shopsuite.cn/xcxfile/appicon/groupbooking/waiting.png'></image>
+    </view>
+  </view>
+  <view class="surplus" wx:if="{{GbInfo.gb_enable==2 && show}}">
+    <view>仅剩{{GbInfo.gb_quantity-GbInfo.gb_amount_quantity}}名额，</view>
+    <label style='min-width:160rpx;'>
+      <count-down style="color:#db384c;font-size:38rpx;height:40rpx;line-height:38rpx;" millisecond="{{GbInfo.endTime}}" Type="2">
+      </count-down>
+    </label>
+    <label>后结束</label>
+  </view>
+  <block wx:if="{{show}}">
+    <view class="m-btn-box" wx:if="{{GbInfo.gb_enable==2 && !groupIsEnd}}">
+      <view class="u-btn u-btn-default" bindtap="shareBox">邀请好友参团</view>
+    </view>
+    <navigator url="../fightgroupslist/fightgroupslist" class="m-btn-box" wx:if="{{GbInfo.gb_enable==0}}">
+      <view class="u-btn u-btn-default">点击再开一团</view>
+    </navigator>
+    <navigator url="../fightgroupslist/fightgroupslist" class="m-btn-box" wx:if="{{GbInfo.gb_enable==1}}">
+      <view class="u-btn u-btn-default">点击再开一团</view>
+    </navigator>
+    <view class="m-btn-box" wx:if="{{GbInfo.gb_enable==2 && !ispaysuccess}}">
+      <view class="u-btn u-btn-default" bindtap="immediatelyOffered">参与活动</view>
+    </view>
+  </block>
+</view>
+<view class='rule'>
+  <view class='rule-header'>
+    拼团规则
+  </view>
+  <view class='rule-content'>
+    {{GbInfo.activity_rule.activity_intro}}
+  </view>
+</view>
+<view class="link">
+  <navigator url="../index/index" open-type="switchTab" class="nav">
+    <image class="nav-img" src="../../assets/index.png"></image>
+    <text>首页逛逛</text>
+  </navigator>
+  <navigator url="../category/category" open-type="switchTab" class="nav">
+    <image class="nav-img" src="../../assets/allproduct.png"></image>
+    <text>全部商品</text>
+  </navigator>
+  <navigator url="../receivecontent/receivecontent" class="nav">
+    <image class="nav-img" src="../../assets/coupon.png"></image>
+    <text>领券中心</text>
+  </navigator>
+  <navigator url="../user-center/user-center" open-type="switchTab" class="nav">
+    <image class="nav-img" src="../../assets/center.png"></image>
+    <text>个人中心</text>
+  </navigator>
+</view>
+</scroll-view>
+<template is="index_msk" wx:if="{{IsNewUser==1 && CouponAmount>0}}" data="{{CouponAmount, isCancel}}" />
+<template is="success_msk" wx:if="{{!isCancelSuccess}}" data="{{Coupons}}" />
+<template is="shareMskTpl" data="{{PageQRCodeInfo}}" />

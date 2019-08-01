@@ -1,0 +1,8 @@
+<send-message>
+  <form bindsubmit="formSubmit" report-submit="true">
+    <button class="send-button" hover-class='none' form-type="submit">
+      <slot ></slot>
+    </button>
+  </form>
+</send-message>
+
