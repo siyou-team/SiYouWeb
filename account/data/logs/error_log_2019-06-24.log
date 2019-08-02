@@ -1,0 +1,1 @@
+[24-Jun-2019 17:31:37 Europe/Riga] PHP Fatal error:  Call to undefined function openssl_public_decrypt() in C:\phpStudy\PHPTutorial\WWW\siyou\libraries\vendor\php5.6\Zero\Licence.php on line 6

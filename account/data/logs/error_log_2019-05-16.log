@@ -1,0 +1,1 @@
+[16-May-2019 08:06:06 Europe/Riga] PHP Fatal error:  Call to undefined method Zero_Api_Mobile::getOauthPcRedirect() in /var/www/html/b2cmarket/account/controllers/Connect/MobileCtl.php on line 70

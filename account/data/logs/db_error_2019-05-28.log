@@ -1,0 +1,4 @@
+13:54:55 05/28/19 FILE=/var/www/html/b2cmarket/account.php [error] ["23000",1062,"Duplicate entry '3443213123-1' for key 'PRIMARY'","INSERT INTO account_user_bind_connect (bind_id, bind_type, user_id, bind_time, bind_openid, bind_access_token) VALUES (\"3443213123\", \"1\", \"\", \"2019-05-28\", \"3443213123\", \"932892\")"]
+14:16:43 05/28/19 FILE=/var/www/html/b2cmarket/account.php [error] ["23000",1062,"Duplicate entry '0' for key 'PRIMARY'","INSERT INTO account_user_bind_connect () VALUES ()"]
+14:19:24 05/28/19 FILE=/var/www/html/b2cmarket/account.php [error] ["23000",1062,"Duplicate entry '0' for key 'PRIMARY'","INSERT INTO account_user_bind_connect () VALUES ()"]
+14:20:24 05/28/19 FILE=/var/www/html/b2cmarket/account.php [error] ["23000",1062,"Duplicate entry '0' for key 'PRIMARY'","INSERT INTO account_user_bind_connect () VALUES ()"]

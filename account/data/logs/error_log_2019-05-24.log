@@ -1,0 +1,1 @@
+[24-May-2019 11:53:12 Europe/Riga] PHP Fatal error:  Call to undefined method VerifyCode::removeCode() in /var/www/html/b2cmarket/account/controllers/LoginCtl.php on line 524
